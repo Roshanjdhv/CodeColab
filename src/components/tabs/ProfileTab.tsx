@@ -1,34 +1,53 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { toast } from "sonner";
+import { 
+  Terminal, 
+  User, 
+  Settings, 
+  Lock, 
+  Bell, 
+  LogOut, 
+  Edit, 
+  Camera, 
+  Palette, 
+  Check,
+  ChevronRight,
+  Upload,
+  Trash2,
+  Globe,
+  Plus
+} from "lucide-react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 export function ProfileTab() {
   const profile = useQuery(api.profiles.getCurrentProfile);
   const updateProfile = useMutation(api.profiles.updateProfile);
   const generateUploadUrl = useMutation(api.profiles.generateUploadUrl);
   
+  const { signOut } = useAuthActions();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     bio: "",
-    userColor: "#6B7280",
+    userColor: "#5048e5",
     isPublic: true,
   });
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Initialize form data when profile loads
-  useState(() => {
+  useEffect(() => {
     if (profile) {
       setFormData({
         username: profile.username || "",
         bio: profile.bio || "",
-        userColor: profile.userColor || "#6B7280",
-        isPublic: profile.isPublic !== false, // Default to true if not set
+        userColor: profile.userColor || "#5048e5",
+        isPublic: profile.isPublic !== false,
       });
     }
-  });
+  }, [profile]);
 
   const handleSave = async () => {
     if (!formData.username.trim()) {
@@ -105,214 +124,273 @@ export function ProfileTab() {
     );
   }
 
+  const colors = [
+    "#5048e5", // Primary
+    "#10b981", // Emerald
+    "#f43f5e", // Rose
+    "#f59e0b", // Amber
+    "#0ea5e9", // Sky
+    "#8b5cf6", // Violet
+  ];
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex justify-between items-start">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">Profile Settings</h2>
-          <p className="text-gray-600">Manage your profile and privacy settings</p>
-        </div>
-        
-        {!isEditing ? (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Edit Profile
-          </button>
-        ) : (
-          <div className="flex space-x-2">
-            <button
-              onClick={() => {
-                setIsEditing(false);
-                setFormData({
-                  username: profile.username || "",
-                  bio: profile.bio || "",
-                  userColor: profile.userColor || "#6B7280",
-                  isPublic: profile.isPublic !== false,
-                });
-              }}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Save Changes
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        {/* Profile Image */}
-        <div className="flex items-center space-x-6 mb-6">
-          <div className="relative">
-            {profile.profileImageUrl ? (
-              <img
-                src={profile.profileImageUrl}
-                alt="Profile"
-                className="w-20 h-20 rounded-full object-cover"
-              />
-            ) : (
-              <div 
-                className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold"
-                style={{ backgroundColor: profile.userColor || "#6B7280" }}
-              >
-                {(profile.username || "U").charAt(0).toUpperCase()}
-              </div>
-            )}
-            
-            {isUploading && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-              </div>
-            )}
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-gray-900">Profile Picture</h3>
-            <p className="text-sm text-gray-600 mb-2">
-              Upload a profile picture to help others recognize you
-            </p>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              disabled={isUploading}
-              className="hidden"
-            />
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isUploading}
-              className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded hover:bg-gray-200 disabled:opacity-50 transition-colors"
-            >
-              {isUploading ? "Uploading..." : "Change Picture"}
-            </button>
-          </div>
-        </div>
-
-        {/* Form Fields */}
-        <div className="space-y-4">
-          {/* Username */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Username *
-            </label>
-            {isEditing ? (
-              <input
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your username"
-              />
-            ) : (
-              <p className="text-gray-900">{profile.username}</p>
-            )}
-          </div>
-
-          {/* Bio */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Bio
-            </label>
-            {isEditing ? (
-              <textarea
-                value={formData.bio}
-                onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                rows={3}
-                placeholder="Tell others about yourself..."
-                maxLength={200}
-              />
-            ) : (
-              <p className="text-gray-900">{profile.bio || "No bio set"}</p>
-            )}
-            {isEditing && (
-              <p className="text-xs text-gray-500 mt-1">
-                {formData.bio.length}/200 characters
-              </p>
-            )}
-          </div>
-
-          {/* User Color */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Profile Color
-            </label>
-            {isEditing ? (
-              <div className="flex items-center space-x-3">
-                <input
-                  type="color"
-                  value={formData.userColor}
-                  onChange={(e) => setFormData({ ...formData, userColor: e.target.value })}
-                  className="w-12 h-10 border border-gray-300 rounded cursor-pointer"
-                />
-                <span className="text-sm text-gray-600">
-                  This color represents you in rooms and chats
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-3">
-                <div 
-                  className="w-6 h-6 rounded border border-gray-300"
-                  style={{ backgroundColor: profile.userColor || "#6B7280" }}
-                />
-                <span className="text-gray-900">{profile.userColor || "#6B7280"}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Privacy Settings */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Privacy Settings
-            </label>
-            {isEditing ? (
-              <label className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  checked={formData.isPublic}
-                  onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">
-                  Make my profile visible in public user search
-                </span>
-              </label>
-            ) : (
-              <p className="text-gray-900">
-                Profile visibility: {profile.isPublic !== false ? "Public" : "Private"}
-              </p>
-            )}
-            <p className="text-xs text-gray-500 mt-1">
-              When enabled, other users can find and send you friend requests
-            </p>
-          </div>
-
-          {/* Status */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Current Status
-            </label>
-            <div className="flex items-center space-x-2">
-              <span className={`w-3 h-3 rounded-full ${
-                profile.status === "online" ? "bg-green-500" :
-                profile.status === "coding" ? "bg-blue-500" : "bg-gray-400"
-              }`} />
-              <span className="text-gray-900 capitalize">{profile.status}</span>
+    <div className="flex flex-col min-h-full font-display bg-slate-50/30">
+      <div className="mx-auto max-w-[1000px] w-full">
+        <div className="flex flex-col gap-8 lg:flex-row py-8">
+          {/* Sidebar Navigation */}
+          <aside className="w-full lg:w-64 flex flex-col gap-2 shrink-0">
+            <div className="mb-4 px-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Account Settings</h3>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Status is automatically updated based on your activity
-            </p>
+            <button className="flex items-center gap-3 rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary text-left">
+              <User className="w-5 h-5" />
+              <span>Public Profile</span>
+            </button>
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
+              <Settings className="w-5 h-5" />
+              <span>Preferences</span>
+            </button>
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
+              <Lock className="w-5 h-5" />
+              <span>Security</span>
+            </button>
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
+              <Bell className="w-5 h-5" />
+              <span>Notifications</span>
+            </button>
+            <div className="my-4 h-[1px] bg-slate-200" />
+            <button 
+              onClick={() => signOut()}
+              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50 transition-all text-left"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Sign Out</span>
+            </button>
+          </aside>
+
+          {/* Content Area */}
+          <div className="flex-1 bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
+            <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-100 pb-8 gap-4">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Public Profile</h1>
+                <p className="mt-1 text-sm text-slate-500">Manage how you appear to others on CodeCollab.</p>
+              </div>
+              {!isEditing ? (
+                <button 
+                  onClick={() => setIsEditing(true)}
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
+                >
+                  <Edit className="w-4 h-4" />
+                  <span>Edit Profile</span>
+                </button>
+              ) : (
+                <div className="flex gap-2">
+                   <button 
+                    onClick={() => {
+                      setIsEditing(false);
+                      setFormData({
+                        username: profile.username || "",
+                        bio: profile.bio || "",
+                        userColor: profile.userColor || "#5048e5",
+                        isPublic: profile.isPublic !== false,
+                      });
+                    }}
+                    className="px-6 py-3 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={handleSave}
+                    className="bg-primary text-white px-8 py-3 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95 flex items-center gap-2"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>Save Changes</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="grid gap-12">
+              {/* Profile Picture Section */}
+              <section className="flex flex-col gap-8 md:flex-row md:items-center border-b border-slate-50 pb-10">
+                <div className="relative group self-center md:self-auto">
+                  <div className="h-36 w-36 overflow-hidden rounded-full border-4 border-white bg-slate-100 shadow-2xl relative">
+                    {profile.profileImageUrl ? (
+                      <img src={profile.profileImageUrl} alt="Profile" className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center text-white text-4xl font-bold" style={{ backgroundColor: profile.userColor || "#5048e5" }}>
+                        {(profile.username || "U").charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    {isUploading && (
+                      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                      </div>
+                    )}
+                  </div>
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    className="absolute bottom-1 right-1 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-lg border-4 border-white hover:scale-110 active:scale-95 transition-all disabled:opacity-50"
+                  >
+                    <Camera className="w-5 h-5" />
+                  </button>
+                  <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                </div>
+                <div className="flex flex-col gap-2 flex-1">
+                  <h3 className="text-xl font-bold text-slate-900">Profile Picture</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">A high-quality image helps developers recognize and connect with you more easily.</p>
+                  <div className="flex gap-3 mt-3">
+                    <button 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="rounded-xl border border-slate-200 px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2"
+                    >
+                      <Upload className="w-4 h-4" /> Upload New
+                    </button>
+                    <button className="rounded-xl px-5 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 transition-all flex items-center gap-2">
+                       <Trash2 className="w-4 h-4" /> Remove
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              {/* Form Section */}
+              <div className="grid gap-10">
+                <div className="grid gap-8 md:grid-cols-2">
+                  <div className="flex flex-col gap-3">
+                    <label className="text-sm font-bold text-slate-700">Username</label>
+                    <div className="relative group">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">@</span>
+                      <input 
+                        className={`w-full rounded-xl border-slate-200 bg-slate-50/50 py-3.5 pl-9 pr-4 text-sm font-medium focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none ${!isEditing ? 'opacity-70 pointer-events-none border-transparent bg-slate-100' : ''}`} 
+                        type="text" 
+                        value={formData.username}
+                        disabled={!isEditing}
+                        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                        placeholder="yourname"
+                      />
+                    </div>
+                    <p className="text-[11px] text-slate-400 font-medium">This is your unique identifier on the platform.</p>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <label className="text-sm font-bold text-slate-700">Display Name</label>
+                    <input 
+                      className={`w-full rounded-xl border-slate-200 bg-slate-50/50 py-3.5 px-4 text-sm font-medium focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none ${!isEditing ? 'opacity-70 pointer-events-none border-transparent bg-slate-100' : ''}`} 
+                      type="text" 
+                      value={formData.username} // We use the same for now or Clerk display name
+                      readOnly
+                      placeholder="Alex Rivers"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <label className="text-sm font-bold text-slate-700">Bio</label>
+                  <textarea 
+                    className={`w-full rounded-xl border-slate-200 bg-slate-50/50 p-4 text-sm font-medium focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none resize-none min-h-[120px] ${!isEditing ? 'opacity-70 pointer-events-none border-transparent bg-slate-100' : ''}`} 
+                    placeholder="Tell us about yourself, your skills, and what you're building..." 
+                    value={formData.bio}
+                    disabled={!isEditing}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    maxLength={300}
+                  />
+                  <div className="flex justify-between items-center text-[11px] px-1">
+                    <p className="text-slate-400 font-medium italic">Brief description for your profile. URLs are allowed.</p>
+                    <p className={`font-bold ${formData.bio.length > 250 ? 'text-amber-500' : 'text-slate-400'}`}>
+                      {formData.bio.length} / 300
+                    </p>
+                  </div>
+                </div>
+
+                {/* Profile Color & Customization */}
+                <div className="flex flex-col gap-4 p-6 bg-slate-50/50 rounded-2xl border border-slate-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Palette className="w-4 h-4 text-primary" />
+                    <label className="text-sm font-bold text-slate-700">Profile Theme Color</label>
+                  </div>
+                  <div className="flex flex-wrap gap-4">
+                    {colors.map((color) => (
+                      <button 
+                        key={color}
+                        onClick={() => isEditing && setFormData({ ...formData, userColor: color })}
+                        className={`h-11 w-11 rounded-full transition-all flex items-center justify-center relative ${
+                          formData.userColor === color ? 'ring-4 ring-primary/20 scale-110 shadow-lg shadow-primary/10 z-10' : 'hover:scale-105 opacity-70 hover:opacity-100'
+                        } ${!isEditing ? 'cursor-default' : 'cursor-pointer'}`}
+                        style={{ backgroundColor: color }}
+                        type="button"
+                        disabled={!isEditing}
+                      >
+                        {formData.userColor === color && <Check className="w-5 h-5 text-white" />}
+                      </button>
+                    ))}
+                    <button 
+                      className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-slate-300 text-slate-400 hover:border-primary hover:text-primary transition-all hover:bg-white" 
+                      type="button"
+                      disabled={!isEditing}
+                    >
+                      <Plus className="w-6 h-6" />
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-slate-400 font-medium">This color will be used for your profile avatar and highlight elements.</p>
+                </div>
+
+                {/* Privacy Settings */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-center gap-2 mb-6 border-b border-slate-50 pb-4">
+                     <Lock className="w-5 h-5 text-slate-400" />
+                     <h3 className="text-lg font-bold text-slate-900">Privacy & Visibility</h3>
+                  </div>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between group cursor-pointer" onClick={() => isEditing && setFormData({ ...formData, isPublic: !formData.isPublic })}>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-sm font-bold text-slate-800">Public Profile Visibility</span>
+                        <span className="text-xs text-slate-400 font-medium">Make your profile discoverable to everyone on the platform.</span>
+                      </div>
+                      <label className="relative inline-flex cursor-pointer items-center pr-2">
+                        <input 
+                          type="checkbox" 
+                          checked={formData.isPublic}
+                          onChange={(e) => isEditing && setFormData({ ...formData, isPublic: e.target.checked })}
+                          className="peer sr-only" 
+                          disabled={!isEditing}
+                        />
+                        <div className="h-7 w-12 rounded-full bg-slate-200 peer-checked:bg-primary after:absolute after:left-[4px] after:top-[4px] after:h-[20px] after:w-[20px] after:rounded-full after:bg-white after:transition-all peer-checked:after:translate-x-full peer-checked:after:scale-105 shadow-inner"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons (Sticky/Fixed style at bottom of form) */}
+                {isEditing && (
+                  <div className="flex justify-end gap-3 border-t border-slate-100 pt-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <button 
+                      onClick={() => setIsEditing(false)}
+                      className="rounded-xl px-8 py-3 text-sm font-bold text-slate-500 hover:bg-slate-50 transition-all" 
+                      type="button"
+                    >
+                      Discard Changes
+                    </button>
+                    <button 
+                      onClick={handleSave}
+                      className="rounded-xl bg-primary px-10 py-3 text-sm font-bold text-white shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95" 
+                      type="submit"
+                    >
+                      Save Profile
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-12 border-t border-slate-100 bg-white py-12">
+        <div className="mx-auto max-w-[1000px] px-8 text-center italic">
+          <p className="text-xs text-slate-400 font-medium">© 2024 CodeCollab Inc. • Built with ❤️ for the global developer community.</p>
+        </div>
+      </footer>
     </div>
   );
 }

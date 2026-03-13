@@ -1,14 +1,22 @@
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
-import { SignOutButton } from "./SignOutButton";
 import { Toaster } from "sonner";
-import { Dashboard } from "./components/Dashboard";
 import { ProfileSetup } from "./components/ProfileSetup";
+import { LandingPage } from "./components/landing/LandingPage";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { ExploreTab } from "./components/tabs/ExploreTab";
+import { PublicTab } from "./components/tabs/PublicTab";
+import { RequestsTab } from "./components/tabs/RequestsTab";
+import { ChatTab } from "./components/tabs/ChatTab";
+import { ProfileTab } from "./components/tabs/ProfileTab";
+import { RoomView } from "./components/RoomView";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-slate-900 font-sans">
       <Authenticated>
         <AuthenticatedApp />
       </Authenticated>
@@ -22,6 +30,7 @@ export default function App() {
 
 function AuthenticatedApp() {
   const profile = useQuery(api.profiles.getCurrentProfile);
+  const [currentRoomId, setCurrentRoomId] = useState<string | null>(null);
 
   if (profile === undefined) {
     return (
@@ -35,64 +44,82 @@ function AuthenticatedApp() {
     return <ProfileSetup />;
   }
 
-  return <Dashboard />;
+  if (currentRoomId) {
+    return (
+      <RoomView 
+        roomId={currentRoomId} 
+        onLeave={() => setCurrentRoomId(null)} 
+      />
+    );
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Navigate to="/explore" replace />} />
+          <Route path="explore" element={<ExploreTab onJoinRoom={setCurrentRoomId} />} />
+          <Route path="public" element={<PublicTab />} />
+          <Route path="requests" element={<RequestsTab />} />
+          <Route path="chat" element={<ChatTab />} />
+          <Route path="profile" element={<ProfileTab />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 function UnauthenticatedApp() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-200 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CC</span>
-            </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              CodeCollab
-            </h1>
-          </div>
-        </div>
-      </header>
+  const [showSignIn, setShowSignIn] = useState(false);
 
-      <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Code Together, Create Together
-            </h2>
-            <p className="text-lg text-gray-600">
-              Real-time collaborative coding platform for developers
-            </p>
+  if (showSignIn) {
+    return (
+      <div className="min-h-screen flex flex-col bg-slate-900 text-slate-50 selection:bg-indigo-500/30">
+        <header className="bg-slate-900/80 backdrop-blur-sm border-b border-indigo-500/10 px-6 py-4">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <button 
+              onClick={() => setShowSignIn(false)}
+              className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+            >
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
+                <span className="text-white font-bold text-sm text-center ml-[0.1rem]">C</span>
+                <span className="text-white font-bold text-sm text-center -ml-[0.1rem]">C</span>
+              </div>
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                CodeCollab
+              </h1>
+            </button>
           </div>
+        </header>
+
+        <main className="flex-1 flex items-center justify-center p-6 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
           
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-blue-100">
-            <SignInForm />
-          </div>
-
-          <div className="mt-8 text-center">
-            <div className="grid grid-cols-3 gap-4 text-sm text-gray-500">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-blue-600 font-semibold">👥</span>
-                </div>
-                <span>Collaborate</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-blue-600 font-semibold">⚡</span>
-                </div>
-                <span>Real-time</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                  <span className="text-blue-600 font-semibold">🚀</span>
-                </div>
-                <span>Execute</span>
-              </div>
+          <div className="w-full max-w-md relative z-10">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Welcome Back
+              </h2>
+              <p className="text-lg text-slate-400">
+                Sign in to continue to your workspace
+              </p>
             </div>
+            
+            <div className="bg-slate-800/60 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-slate-700/50">
+              <SignInForm />
+            </div>
+            
+            <button 
+              onClick={() => setShowSignIn(false)}
+              className="mt-6 text-sm text-slate-400 hover:text-white transition-colors w-full text-center"
+            >
+              ← Back to Home
+            </button>
           </div>
-        </div>
-      </main>
-    </div>
-  );
+        </main>
+      </div>
+    );
+  }
+
+  return <LandingPage onSignInClick={() => setShowSignIn(true)} />;
 }

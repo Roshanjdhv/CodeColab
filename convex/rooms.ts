@@ -2,6 +2,18 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { getAuthUserId } from "@convex-dev/auth/server";
 
+const ROOM_COLORS = [
+  "#6366f1", // Indigo
+  "#10b981", // Emerald
+  "#f43f5e", // Rose
+  "#f59e0b", // Amber
+  "#3b82f6", // Blue
+  "#8b5cf6", // Violet
+  "#ec4899", // Pink
+  "#06b6d4", // Cyan
+  "#f97316", // Orange
+];
+
 export const createRoom = mutation({
   args: {
     name: v.string(),
@@ -25,6 +37,8 @@ export const createRoom = mutation({
       ? Math.random().toString(36).substring(2, 8).toUpperCase()
       : undefined;
 
+    const randomColor = ROOM_COLORS[Math.floor(Math.random() * ROOM_COLORS.length)];
+
     const roomId = await ctx.db.insert("rooms", {
       name: args.name,
       description: args.description,
@@ -35,6 +49,7 @@ export const createRoom = mutation({
       admins: [userId], // Creator is automatically an admin
       language: args.language,
       isActive: true,
+      color: randomColor,
     });
 
     // Create initial file

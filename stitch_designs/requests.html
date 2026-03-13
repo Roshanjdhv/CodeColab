@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Nav Bar Container -->
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5 px-4 md:px-10 lg:px-40">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-solid border-primary/10 px-6 py-4 bg-white dark:bg-slate-900 rounded-t-xl">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">Requests</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<div class="flex flex-col md:flex-row h-full min-h-[700px] bg-white dark:bg-slate-900 shadow-sm rounded-b-xl overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-64 border-r border-primary/5 p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border-2 border-primary/30">
+<div class="w-full h-full bg-gradient-to-br from-primary to-indigo-600" data-alt="Abstract geometric purple and blue gradient"></div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-sm font-bold">CodeCollab</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Personal Workspace</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm font-semibold">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-sm font-semibold">Rooms</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-md shadow-primary/20" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="text-sm font-semibold">Requests</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-sm font-semibold">Profile</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col">
+<!-- Tabs -->
+<div class="px-6 pt-4">
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8">
+<a class="flex flex-col items-center justify-center border-b-2 border-primary text-primary pb-3 pt-2" href="#">
+<p class="text-sm font-bold">Pending</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 pb-3 pt-2" href="#">
+<p class="text-sm font-bold">History</p>
+</a>
+</div>
+</div>
+<!-- Empty State Container -->
+<div class="flex flex-col flex-1 items-center justify-center px-6 py-20 text-center">
+<div class="relative mb-8">
+<!-- Modern Illustration Placeholder -->
+<div class="w-64 h-64 relative flex items-center justify-center rounded-full bg-primary/5">
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse opacity-20"></div>
+<div class="z-10 bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-primary/10">
+<div class="grid grid-cols-2 gap-4">
+<div class="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="person_add">person_add</span>
+</div>
+<div class="h-12 w-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-500" data-icon="meeting_room">meeting_room</span>
+</div>
+<div class="h-12 w-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-500" data-icon="notifications_off">notifications_off</span>
+</div>
+<div class="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="checklist">checklist</span>
+</div>
+</div>
+</div>
+<!-- Decorative elements -->
+<div class="absolute -top-4 -right-2 h-12 w-12 rounded-full bg-primary/10 blur-xl"></div>
+<div class="absolute -bottom-4 -left-2 h-16 w-16 rounded-full bg-indigo-500/10 blur-xl"></div>
+</div>
+</div>
+<div class="max-w-[420px] space-y-3">
+<h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Everything is up to date</h3>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                                    When people ask to join your rooms or send you friend invitations, they'll appear here for your review.
+                                </p>
+</div>
+<div class="mt-10 flex flex-col sm:flex-row gap-3">
+<button class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 min-w-[160px]">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+<span>Invite Friends</span>
+</button>
+<button class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all min-w-[160px]">
+<span class="material-symbols-outlined text-[20px]" data-icon="search">search</span>
+<span>Find Rooms</span>
+</button>
+</div>
+</div>
+<!-- Footer / Info -->
+<div class="p-6 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 text-center">
+<p class="text-xs text-slate-400 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                                You can manage your notification preferences in settings.
+                            </p>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

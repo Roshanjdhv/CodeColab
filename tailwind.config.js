@@ -8,6 +8,14 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...fontFamily.sans],
       },
+      animation: {
+        shimmer: "shimmer 1.5s infinite",
+      },
+      keyframes: {
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
       borderRadius: {
         DEFAULT: "8px",
         secondary: "4px",

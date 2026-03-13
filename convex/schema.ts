@@ -33,6 +33,7 @@ const applicationTables = {
       v.literal("react")
     ),
     isActive: v.boolean(),
+    color: v.optional(v.string()),
   })
     .index("by_type", ["type"])
     .index("by_creator", ["createdBy"])

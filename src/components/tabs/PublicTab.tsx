@@ -3,6 +3,17 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { toast } from "sonner";
+import { 
+  Search, 
+  UserPlus, 
+  UserCheck, 
+  Clock, 
+  ChevronDown, 
+  Terminal,
+  Users,
+  MessageSquare,
+  X
+} from "lucide-react";
 
 export function PublicTab() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,89 +51,120 @@ export function PublicTab() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">Discover Users</h2>
-        <p className="text-gray-600">Find and connect with other developers</p>
-      </div>
-
-      {/* Search */}
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <span className="text-gray-400">🔍</span>
+    <div className="flex flex-col min-h-full font-display">
+      {/* Search and Filters Section */}
+      <div className="flex flex-col gap-6 mb-8">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-bold text-slate-900">Discover Developers</h1>
+          <p className="text-slate-500">Find and connect with developers across the globe.</p>
         </div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search users by name or bio..."
-          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-1 h-12">
+            <div className="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white border border-slate-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all group">
+              <div className="text-slate-400 flex items-center justify-center pl-4 group-focus-within:text-primary transition-colors">
+                <Search className="w-5 h-5" />
+              </div>
+              <input 
+                className="w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 px-4 text-base font-normal placeholder:text-slate-400 text-slate-900" 
+                placeholder="Search by name, role, or tech stack..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+            <button className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary text-white px-6 font-medium shadow-md shadow-primary/20 active:scale-95 transition-all">
+              <span>All</span>
+            </button>
+            <button className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-6 font-medium hover:bg-slate-50 transition-colors shadow-sm active:scale-95">
+              <span>Frontend</span>
+              <ChevronDown className="w-4 h-4 opacity-50" />
+            </button>
+            <button className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white border border-slate-200 px-6 font-medium hover:bg-slate-50 transition-colors shadow-sm active:scale-95">
+              <span>Backend</span>
+              <ChevronDown className="w-4 h-4 opacity-50" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Users Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Developers Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
         {publicUsers?.map((user) => (
           <div
             key={user.userId}
-            className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+            className="group flex flex-col rounded-xl bg-white shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300"
           >
-            <div className="flex items-start space-x-3">
-              {/* Profile Image */}
-              <div className="flex-shrink-0">
-                {user.profileImageUrl ? (
-                  <img
-                    src={user.profileImageUrl}
-                    alt={user.username}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                ) : (
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold"
-                    style={{ backgroundColor: user.userColor || "#6B7280" }}
-                  >
-                    {user.username.charAt(0).toUpperCase()}
-                  </div>
-                )}
+            {/* Cover Gradient/Image */}
+            <div className="h-24 bg-gradient-to-r from-primary/20 to-primary/40 relative">
+               <div className="absolute inset-0 opacity-20 group-hover:scale-110 transition-transform duration-700 overflow-hidden">
+                  <div className={`w-full h-full bg-gradient-to-br transition-all ${
+                    user.userColor ? `from-[${user.userColor}]/40 to-white/10` : 'from-primary/40 to-indigo-600/20'
+                  }`} />
+               </div>
+              <div className="absolute -bottom-10 left-6 z-10">
+                <div className="relative size-20 rounded-2xl border-4 border-white overflow-hidden bg-slate-200 shadow-sm flex items-center justify-center">
+                  {user.profileImageUrl ? (
+                    <img
+                      src={user.profileImageUrl}
+                      alt={user.username}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-white text-2xl font-bold"
+                      style={{ backgroundColor: user.userColor || "#6B7280" }}
+                    >
+                      {user.username.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div className={`absolute bottom-1 right-1 size-4 rounded-full border-2 border-white shadow-sm ${
+                    user.status === "online" ? "bg-green-500" :
+                    user.status === "coding" ? "bg-blue-500" : "bg-slate-400"
+                  }`} 
+                  title={user.status || "offline"} />
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-12 p-6 flex flex-col gap-4 flex-1">
+              <div className="flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
+                  {user.username}
+                </h3>
+                <p className="text-sm font-medium text-primary">
+                  {user.status === "coding" ? "🧑‍💻 Currently Coding" : "Developer"}
+                </p>
+              </div>
+              <p className="text-slate-600 text-sm line-clamp-2 leading-relaxed flex-1">
+                {user.bio || "No bio description available. Check back later to learn more about this developer!"}
+              </p>
+              
+              <div className="flex flex-wrap gap-2 py-2">
+                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-medium">Full-stack</span>
+                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-medium">Node.js</span>
               </div>
 
-              {/* User Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center space-x-2">
-                  <h3 className="font-semibold text-gray-900 truncate">
-                    {user.username}
-                  </h3>
-                  <span className={`w-2 h-2 rounded-full ${
-                    user.status === "online" ? "bg-green-500" :
-                    user.status === "coding" ? "bg-blue-500" : "bg-gray-400"
-                  }`} />
-                </div>
-                
-                {user.bio && (
-                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                    {user.bio}
-                  </p>
+              <div className="mt-2">
+                {user.isFriend ? (
+                  <div className="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-green-50 text-green-700 text-sm font-bold border border-green-200">
+                    <UserCheck className="w-5 h-5" />
+                    <span>Friends</span>
+                  </div>
+                ) : user.hasPendingRequest ? (
+                  <div className="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-amber-50 text-amber-700 text-sm font-bold border border-amber-200">
+                    <Clock className="w-5 h-5" />
+                    <span>{user.requestSentByMe ? "Request Sent" : "Respond to Invitation"}</span>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => openRequestModal(user)}
+                    className="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-[0.98]"
+                  >
+                    <UserPlus className="w-5 h-5" />
+                    <span>Add Friend</span>
+                  </button>
                 )}
-
-                <div className="mt-3">
-                  {user.isFriend ? (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      ✓ Friends
-                    </span>
-                  ) : user.hasPendingRequest ? (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                      {user.requestSentByMe ? "Request Sent" : "Request Received"}
-                    </span>
-                  ) : (
-                    <button
-                      onClick={() => openRequestModal(user)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
-                    >
-                      Add Friend
-                    </button>
-                  )}
-                </div>
               </div>
             </div>
           </div>
@@ -130,15 +172,17 @@ export function PublicTab() {
       </div>
 
       {publicUsers?.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-gray-400 text-6xl mb-4">👥</div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
-            {searchQuery ? "No users found" : "No public users"}
+        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+          <div className="bg-slate-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+             <Users className="w-10 h-10 text-slate-300" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">
+            {searchQuery ? "No users found" : "No developers active"}
           </h3>
-          <p className="text-gray-600">
+          <p className="text-slate-500 max-w-sm mx-auto">
             {searchQuery 
-              ? "Try adjusting your search terms" 
-              : "Be the first to make your profile public!"
+              ? "We couldn't find anyone matching your search terms. Try keywords like 'React', 'Design', or just 'Alex'." 
+              : "Looks like you're the first one here! Your profile is public, so others will see you soon."
             }
           </p>
         </div>
@@ -146,68 +190,80 @@ export function PublicTab() {
 
       {/* Friend Request Modal */}
       {showRequestModal && selectedUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Send Friend Request
-            </h3>
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+          <div className="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl border border-slate-200 animate-in fade-in zoom-in duration-300">
+            <div className="flex justify-between items-start mb-6">
+               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center">
+                  <UserPlus className="w-8 h-8 text-primary" />
+               </div>
+               <button onClick={() => setShowRequestModal(false)} className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                  <X className="w-5 h-5 text-slate-400" />
+               </button>
+            </div>
             
-            <div className="flex items-center space-x-3 mb-4">
-              {selectedUser.profileImageUrl ? (
-                <img
-                  src={selectedUser.profileImageUrl}
-                  alt={selectedUser.username}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-              ) : (
-                <div 
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
-                  style={{ backgroundColor: selectedUser.userColor || "#6B7280" }}
-                >
-                  {selectedUser.username.charAt(0).toUpperCase()}
-                </div>
-              )}
-              <div>
-                <p className="font-medium text-gray-900">{selectedUser.username}</p>
-                {selectedUser.bio && (
-                  <p className="text-sm text-gray-600">{selectedUser.bio}</p>
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">
+              Connect with {selectedUser.username}
+            </h3>
+            <p className="text-slate-500 mb-6">Send a friendly invitation to start collaborating on projects together.</p>
+            
+            <div className="flex items-center space-x-4 mb-8 p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <div className="relative size-12 rounded-xl border-2 border-white overflow-hidden shadow-sm">
+                {selectedUser.profileImageUrl ? (
+                  <img
+                    src={selectedUser.profileImageUrl}
+                    alt={selectedUser.username}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div 
+                    className="w-full h-full flex items-center justify-center text-white font-bold"
+                    style={{ backgroundColor: selectedUser.userColor || "#6B7280" }}
+                  >
+                    {selectedUser.username.charAt(0).toUpperCase()}
+                  </div>
                 )}
+              </div>
+              <div>
+                <p className="font-bold text-slate-900">{selectedUser.username}</p>
+                <p className="text-sm text-slate-500 truncate max-w-[200px]">{selectedUser.bio || "Developer"}</p>
               </div>
             </div>
 
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Message (optional)
+            <div className="mb-6">
+              <label className="block text-sm font-bold text-slate-700 mb-2">
+                Personal Message (optional)
               </label>
               <textarea
                 value={requestMessage}
                 onChange={(e) => setRequestMessage(e.target.value)}
-                placeholder="Hi! I'd like to connect with you on CodeCollab."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                rows={3}
+                placeholder="Hey! I'd love to collaborate on some React projects with you."
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none text-slate-900"
+                rows={4}
                 maxLength={200}
               />
-              <p className="text-xs text-gray-500 mt-1">
-                {requestMessage.length}/200 characters
-              </p>
+              <div className="flex justify-end mt-1">
+                <span className="text-xs text-slate-400 font-medium">
+                  {requestMessage.length}/200
+                </span>
+              </div>
             </div>
 
-            <div className="flex space-x-3">
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleSendRequest}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95"
+              >
+                Send Invitation
+              </button>
               <button
                 onClick={() => {
                   setShowRequestModal(false);
                   setSelectedUser(null);
                   setRequestMessage("");
                 }}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="w-full py-3 text-slate-500 font-semibold hover:text-slate-700 transition-colors"
               >
-                Cancel
-              </button>
-              <button
-                onClick={handleSendRequest}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Send Request
+                Maybe Later
               </button>
             </div>
           </div>

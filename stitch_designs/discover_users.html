@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>CodeCollab - Discover Developers</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-4 bg-white dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">terminal</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">CodeCollab</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden md:flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/10 border-2 border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbGP6TKSETpX4b1GfFbs-bLo3fTAsOmTXwO9bK4-fJCUJl3jUh1wT0rO5nbpZcVxns9kfH2qHiCT_fFvyF11jQOEqhiJg8lKlalaxO_KPJQXHpYIj3Vg9bMdE_mQ-UkWf1ypp35o6OwR-PJS0D5rpozPz8cql_zBS8rFNWPZtjQu2SMsFcjFTUiWjEHMozAx1qpMA1qP4lb-9GhMPo7QypZDoZmhsOSUiXcuwcB2WTXDODdtVZ3JsbIkYePJ5xk4_KbRo43v3VY1g"/>
+</div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-8 px-6 lg:px-40">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+<!-- Search and Filters Section -->
+<div class="flex flex-col gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-bold">Discover Developers</h1>
+<p class="text-slate-500 dark:text-slate-400">Find and connect with developers across the globe.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-4">
+<label class="flex flex-col flex-1 h-12">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="text-slate-400 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 px-4 text-base font-normal placeholder:text-slate-400 dark:text-white" placeholder="Search by name, role, or tech stack..." value=""/>
+</div>
+</label>
+<div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+<button class="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary text-white px-6 font-medium">
+<span>All</span>
+</button>
+<button class="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-6 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span>Frontend</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+<button class="flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-6 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span>Backend</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Developers Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- User Card 1 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-primary/20 to-primary/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of Alex Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg_ZwvQG83TEFHNrpTK8bypdGVa280IJeg_Kae3nOFatSiIZLCy3gYETu3scmLnQhcpmAtS-Ck19TdxuQoallocT8bfGVEm9bMr1aST8onczGGQs3kYH_YrYazFwU_AfHt5rr2A1csRt65KVpT8b_3RgKVHkaaMc6pi_SRKiwdfdXeEBtkANRrN34FYCUx91bJZ3GrcWGFpEb1TBBjFH9SrYBb0i0gWS76D41Ev_sYxOSOlqRb1T9dhwzZ8pHM8i0hNc8DzQ7RvZE"/>
+<div class="absolute bottom-1 right-1 size-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-800" title="Online"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Alex Chen</h3>
+<p class="text-sm font-medium text-primary">Senior Full-stack Developer</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    React &amp; Node.js specialist with 5+ years of experience. Loves building scalable architecture and open-source tooling.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">React</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Node.js</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">AWS</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+<!-- User Card 2 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-purple-500/20 to-purple-500/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Portrait of Sarah Miller AI engineer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp1zhjj-wx0lYeoNiOyAcAAOp3MGXPmCETFDRZkiEqm03AY-LcRjiw_4F5ZEa-kjZB6Fu_YvV741YdEvDyHELdVuyeDCiKi7folkJlxPsZsz8FZrITibjAlJ6Zjp5-2D-Z9XGokQDPbYJ5WAinG2wqpQfhXc2nsESz-LPEHmuIh2Ey7U1HKq3LsNFBJFb1aGvrgwpzNjyK_N0LqnOpjOvIVTSxwYSUpbdkTJk-o_c_MARyKvFrWOzT7t6B2qIj6iZ2N_6y2k0dV8w"/>
+<div class="absolute bottom-1 right-1 size-4 bg-amber-500 rounded-full border-2 border-white dark:border-slate-800" title="Away"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Sarah Miller</h3>
+<p class="text-sm font-medium text-primary">AI/ML Engineer</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    Deep learning enthusiast focused on NLP. Currently researching transformer models for code generation.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Python</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">PyTorch</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">NLP</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+<!-- User Card 3 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-blue-500/20 to-blue-500/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Portrait of David Kim DevOps Engineer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe8q26sI1y1FvmpW7PCTC2JRKFcStNFnW4J-9qf4AcsJg94UtZCfgDKfVR9u0F3fuxr4OI6nU3a5C9uf0KRlnxT39fsoslhiAZjzWv7AoxNcZ_LlTHqpzyAlnOWNcUt9XVUqwvYc30vh8tBC9BAdqORNAege6AySYf3RA6lH6Je4oE_FPwMUd7qeYF674Wv4ZgCQeju_Ldut2mvkmqZswFZzfQ95awhtiUc6miQQ6W1W-oDQWtDMxxnx2EUYHwxPTNeBBS8ovTCj0"/>
+<div class="absolute bottom-1 right-1 size-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-800" title="Online"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">David Kim</h3>
+<p class="text-sm font-medium text-primary">DevOps Architect</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    Automating the world one pipeline at a time. Kubernetes expert and cloud native advocate.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Kubernetes</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Docker</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Go</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+<!-- User Card 4 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-emerald-500/20 to-emerald-500/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Portrait of Elena Rodriguez UI designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoI0mofDcCR5KHzqPjBW42v6RwebOVQM8fsKIqpRVVlltyii6pxfC_QH73XKdqMLWweylBbgFD-Zj1tekJ2j7peCdEvnIWnuZzwogIHUlQLP0zVzyCyuQKbPUrQcQWh4Zv5N8QeY_mJcDEDCqwkwyjny3mtLx5HcbAFMp1DLoaJsq0ubxM6q3mDjzUu56_Gjh5x_eB0Z1TUHDmPJ0aFjA2FfmMjMpiQIYWkCNzB3vGk8eNsfbFghiVOFjtHS7YJjqhe-wFO-56-28"/>
+<div class="absolute bottom-1 right-1 size-4 bg-slate-400 rounded-full border-2 border-white dark:border-slate-800" title="Offline"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Elena Rodriguez</h3>
+<p class="text-sm font-medium text-primary">UI/UX Designer &amp; Engineer</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    Bridging the gap between design and code. Specializing in design systems and accessible web apps.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Figma</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Tailwind</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Vue</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+<!-- User Card 5 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-orange-500/20 to-orange-500/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Portrait of Marcus Thorne security researcher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDppCzPIkoRqtfSKQi2AB2b1xZxZClHN4kJvtrLxceXnR61CYj-5nTMiVtlQetHL22nPkU6ULsq_n88zcU4tx_rBTn1CeyRyX3ZPhG7rmrrwArfquh0i83wzW5v4xfpYzQSdN2QS7JQ0NP22ICVkON3fDPPZXjtrkvMZ7510jIhvb994Dz7j2uHVm3L6Kp1WIfjZapTw52Ey2XMsu4Ixr5bB6dx8fe1wfot4w-BHCZ5bb1Y--pxmNP9XVTSxAAh-wiFYYF1Y0h-26A"/>
+<div class="absolute bottom-1 right-1 size-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-800" title="Online"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Marcus Thorne</h3>
+<p class="text-sm font-medium text-primary">Cybersecurity Specialist</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    Ethical hacker and security researcher. Helping developers write more secure code from day one.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Rust</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Pentesting</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">C++</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+<!-- User Card 6 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all duration-300">
+<div class="h-24 bg-gradient-to-r from-pink-500/20 to-pink-500/40 relative">
+<div class="absolute -bottom-10 left-6">
+<div class="relative size-20 rounded-2xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="Portrait of Jamie Loo mobile developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkF0wEla9XkSrfeJe0l7l3EDEwHZj7RP344OTU5VTl3Qg1h6MaBT2vpXBnySUgbHfPqpxC1fKphLE1fTueCSMMbefbWZjyBHIgQ61JtV4w4B7ccfhaUu_pSg8n3Y2MSzTmLl64QIbCpQgzthVO1YMfJVmm8qF0BP_8Qb2zUt93skclADQXJ9QMTcGLdKcYB7p6MFL7X2QeDyl9L6ZNSvoLyspdhGRKmPKfDDwQzcTaWoEXdJFPUFhw1xZyRkKDk03P078qOCT2fRg"/>
+<div class="absolute bottom-1 right-1 size-4 bg-amber-500 rounded-full border-2 border-white dark:border-slate-800" title="Away"></div>
+</div>
+</div>
+</div>
+<div class="pt-12 p-6 flex flex-col gap-4">
+<div class="flex flex-col">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Jamie Loo</h3>
+<p class="text-sm font-medium text-primary">Mobile App Developer</p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                                    Building beautiful cross-platform experiences. Flutter fanatic and mobile performance advocate.
+                                </p>
+<div class="flex flex-wrap gap-2 py-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Flutter</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Dart</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded font-medium">Firebase</span>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full h-10 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>Add Friend</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination (Optional decoration) -->
+<div class="flex justify-center mt-12 mb-8">
+<nav class="flex items-center gap-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

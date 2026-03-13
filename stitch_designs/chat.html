@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeCollab - Private Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#5048e5",
+                "background-light": "#f6f6f8",
+                "background-dark": "#121121",
+              },
+              fontFamily: {
+                "display": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-slate-900 px-6 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">terminal</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">CodeCollab</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Projects</a>
+<a class="text-primary text-sm font-semibold transition-colors" href="#">Messages</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Community</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 w-64">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-500" placeholder="Search conversations..." type="text"/>
+</label>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<div class="h-8 w-8 rounded-full bg-primary/20 border border-primary/30 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMwBjOHua9NaM2jo1YElbb58AI94HjF-t0rPkGFf509LDquEPe0rDq_cqJ8XvBrDozCYYYCIJuNUgH5CNDgA-TN01cnoum67MuLUDUL9qv6_i2XeEW3p1MTU3mSnGyV6wr_HDuCCIUJFqb2YDy1-DLwuVpswSXmPdzyH5Ubh6aX6Goy1eW_vH_rWLgbZXtD93xcpVDzohhYXH3rHvsRwEz8yrC2kxbFTQiFH7eDDtXs56JQEGRe6dm_AVjtPCViBKRTgoXM1rP_bc"/>
+</div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<!-- Sidebar: Friends List -->
+<aside class="w-80 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col">
+<div class="p-6 flex flex-col gap-6 h-full">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-slate-900 dark:text-slate-100 text-xl font-bold">Messages</h1>
+<p class="text-slate-500 text-xs font-medium uppercase tracking-wider mt-1">5 friends online</p>
+</div>
+<button class="p-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+</button>
+</div>
+<div class="flex flex-col gap-1 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Active Friend -->
+<div class="flex items-center gap-3 p-3 rounded-xl bg-primary/5 border border-primary/10 cursor-pointer group">
+<div class="relative">
+<div class="size-11 rounded-full bg-slate-200 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Alex Rivers profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBikS3zWQSPmQcOAg7tBbdtxMXkx5hI8CO__te0dgLHbDOpD7iuW4VGbJN5f6o3NcHjrbhQx9emgul8nfIad5i4mSS7luWsuGLgGAghSAvWMOuNQ2-cW0g1dNo8bIrMw_YtydxTg5coTDIPt19g8j41F5asOibqf-0Bfx_qaNCDCBg61hoHascgE_znuSEs7mP3wfH0V_TkWtMmfSOCNZI1MsJiFtnd5s3mjAIBpO8Igt93ffkuyRHSzNA1gVPHQYKclBzCmUw5uTw"/>
+</div>
+<div class="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full border-2 border-white dark:border-slate-900"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-semibold truncate">Alex Rivers</p>
+<span class="text-[10px] text-primary font-medium">Online</span>
+</div>
+<p class="text-slate-500 text-xs truncate">Ready for that PR review?</p>
+</div>
+</div>
+<!-- Other Friends -->
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors group">
+<div class="relative">
+<div class="size-11 rounded-full bg-slate-200 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Jamie Chen profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjAzAGi18KX4uRCX4RoqPed25471l4Yylt_j0CW-6c5n71PXhwaNwrbYpJUxLCtjBrrIHk4V2fMbpN-xlUIr-lgSztXRra2bESHgLiOO1wZlKf9fLuRCj2drgDR04xDIUXETZUTHPOfyvOGfTGLvNJwrlvsG2ZDC9VEr6at4SUPU9MvmlvbPCzi3fDvToz_eZ-Ds_FvZ6Da63igAkNFsMAVL47BPOCllAkh-41ruU55qjqpMuNCm3XYyp69JZW-huioj0hiHASDio"/>
+</div>
+<div class="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full border-2 border-white dark:border-slate-900"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-medium group-hover:text-primary transition-colors">Jamie Chen</p>
+<span class="text-[10px] text-slate-400">2m</span>
+</div>
+<p class="text-slate-400 text-xs truncate">The Docker image is built.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors group">
+<div class="relative">
+<div class="size-11 rounded-full bg-slate-200 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Sam Smith profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTmxz4Wpe1B1k9Db8RmTmg4oU1bnuttqYQ_OmoBCvpN_KoooiYWRYYAlX6aaOm-_7H8lF0tgPzf2BYvTMxpGSQoakCYMf4mbJusIAResccmieQ48bCaokKYoloWnN8qzVj7cRTlEnHYOCH1uUA9_Sfvo3cOPPmPsupolRmNB0BpleCBE-Mjwd81tF-fxdpAsA3OreI-0dAr2dX-9Sj-705nfGbCoBbB7myCvFFhjXss34fPYqPUIqMcJJ-HW7EJipKUH-2khAc3KI"/>
+</div>
+<div class="absolute bottom-0 right-0 size-3 bg-slate-300 rounded-full border-2 border-white dark:border-slate-900"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-medium group-hover:text-primary transition-colors">Sam Smith</p>
+<span class="text-[10px] text-slate-400">1h</span>
+</div>
+<p class="text-slate-400 text-xs truncate">Sent a code snippet.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors group">
+<div class="relative">
+<div class="size-11 rounded-full bg-slate-200 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Taylor Reed profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8MwzkYWPeHrt6p2njbsbw8yVL7Fa-qb5Q5vEJi9wfLysSmonV9vh2xwu9_6UVvGYlean9f6hBAFjjFIJvoalv6Voj_g9_HDleTdk3BX7A7MelmK3efUaiAnDHOBtylSmt4SYWTsdRPH2AYvgxFa8BsgfFTnekZ8abiJIBbQsF_M1qcku8fdNIWWu1wzSgXtbw8VZEZUNX7pZojEQFDhTPQfiwXu8j0poc7_1kMDvZm5txkkgTwviUk3ryrEUfG3U9MyNcd1Gcdks"/>
+</div>
+<div class="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full border-2 border-white dark:border-slate-900"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-medium group-hover:text-primary transition-colors">Taylor Reed</p>
+<span class="text-[10px] text-slate-400">3h</span>
+</div>
+<p class="text-slate-400 text-xs truncate">Did you see the new update?</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors group">
+<div class="relative">
+<div class="size-11 rounded-full bg-slate-200 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Jordan Lee profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx0WzoKP4Yl-rNDY5UmG3w7iMX2PoMYmRBs0fOUpg_Ast_m8ncJ5mix53VZMUydzM83Y01iSdiJgnXPD10wThKj3Bdmz1NoZay0jyNK96scWLFlOhoUquvS30Mc7d9Rk0nFyYvqmhaobVsWukCDdK1u73M9HyZkqpqXqo7tKWWzMGDInrub_TUECWBZSE7VdDUgygsmSIWE-bS3VmlZaFAejKCQ1LHKpjc8VXBYhPzZdURkARs2JMW3fOG3DQuB32xRUrlMhRXkIU"/>
+</div>
+<div class="absolute bottom-0 right-0 size-3 bg-slate-300 rounded-full border-2 border-white dark:border-slate-900"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<p class="text-slate-900 dark:text-slate-100 text-sm font-medium group-hover:text-primary transition-colors">Jordan Lee</p>
+<span class="text-[10px] text-slate-400">1d</span>
+</div>
+<p class="text-slate-400 text-xs truncate">Thanks for the help!</p>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Find Friends</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Chat Area: Empty State -->
+<section class="flex-1 flex flex-col bg-background-light dark:bg-background-dark relative">
+<!-- Background Decoration -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
+<div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"></div>
+<div class="absolute -bottom-[20%] -left-[10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px]"></div>
+</div>
+<!-- Empty State Content -->
+<div class="flex-1 flex flex-col items-center justify-center p-8 relative z-10">
+<div class="w-full max-w-md flex flex-col items-center text-center">
+<div class="relative mb-8">
+<div class="size-24 bg-primary/10 rounded-3xl rotate-12 flex items-center justify-center">
+<div class="size-20 bg-primary/20 rounded-2xl -rotate-12 flex items-center justify-center backdrop-blur-sm border border-primary/20 shadow-xl">
+<span class="material-symbols-outlined text-primary text-5xl rotate-0">forum</span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 size-10 bg-white dark:bg-slate-800 rounded-full border-4 border-background-light dark:border-background-dark flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-xl">add</span>
+</div>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-bold mb-3">No Conversation Selected</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8">
+                            Choose a friend from the sidebar or search for a teammate to start collaborating on code and sharing ideas.
+                        </p>
+<div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+<button class="px-6 py-2.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/25">
+                                Start a New Chat
+                            </button>
+<button class="px-6 py-2.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all">
+                                View Recent Activity
+                            </button>
+</div>
+</div>
+</div>
+<!-- Messaging Input Area (Disabled in empty state) -->
+<div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 backdrop-blur-md relative z-10">
+<div class="flex items-center gap-4 max-w-5xl mx-auto">
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="p-2 text-slate-400 cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined">image</span>
+</button>
+</div>
+<div class="flex-1 relative">
+<input class="w-full bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl px-4 py-3 text-slate-400 cursor-not-allowed" disabled="" placeholder="Select a friend to message..." type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-300 text-[20px]">sticky_note_2</span>
+<span class="material-symbols-outlined text-slate-300 text-[20px]">code</span>
+</div>
+</div>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-400 px-6 py-3 rounded-xl font-bold cursor-not-allowed" disabled="">
+                            Send
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

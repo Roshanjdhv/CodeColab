@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex flex-col min-h-screen">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl">terminal</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">CodeCollab</h1>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-primary font-semibold flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-xl">explore</span> Explore
+                        </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-xl">source</span> Projects
+                        </a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-xl">forum</span> Messages
+                        </a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/20 border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User avatar placeholder with abstract pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEYLvu_5p0esqPLc3oF3cL_PMjpYj6-iC9dF4bHQRFhPkRFdIOrhYkvxNIbOcPDYRvGUcM5dI60HrEoyTdSAyIKBeN6yPv6rW7uysTlrDuRIBYckTLXTDlsheTU-3VvDiSUg0-jGbYU_QT8S-6h7lMD9QO5c9uZ60JIR5ZxT9ej66fjzUDKugzVTLh7rasipx-ezA8DbWCWIhpdhgwVmBr-v8QD2_DTIMFENzWQgBRbFpmmZJ4HJgwZWeJ2Ps69m8a-eIIPMPNYKk"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative bg-primary/5 dark:bg-primary/10 py-16 px-4 overflow-hidden">
+<div class="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full filter blur-3xl -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary rounded-full filter blur-3xl -ml-32 -mb-32"></div>
+</div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+                        Explore Coding Rooms
+                    </h2>
+<p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Join private rooms or discover public communities to collaborate on projects in real-time.
+                    </p>
+<div class="max-w-2xl mx-auto">
+<div class="flex flex-col sm:flex-row gap-3 p-2 bg-white dark:bg-slate-900 rounded-xl shadow-xl shadow-primary/5 border border-slate-200 dark:border-slate-800">
+<div class="flex flex-1 items-center px-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<span class="material-symbols-outlined text-slate-400">vpn_key</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-500 text-sm md:text-base py-3" placeholder="Enter private room code..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">login</span>
+                                Join Room
+                            </button>
+</div>
+<p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                            Looking to start fresh? <a class="text-primary font-semibold hover:underline" href="#">Create a new room</a>
+</p>
+</div>
+</div>
+</section>
+<!-- Room Explorer Content -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- Filters/Tabs -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-slate-200 dark:border-slate-800">
+<div class="flex gap-1 overflow-x-auto no-scrollbar">
+<button class="px-6 py-4 border-b-2 border-primary text-primary font-bold whitespace-nowrap">All Rooms</button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary transition-colors whitespace-nowrap font-medium">Public</button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary transition-colors whitespace-nowrap font-medium">My Rooms</button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary transition-colors whitespace-nowrap font-medium">Joined</button>
+</div>
+<div class="flex items-center gap-4 pb-4 md:pb-0">
+<div class="relative flex-grow md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Search by name or tag..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract code blocks and geometric shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd-yKxanfBjLh_eDdAeaCYdtaqKxZpNKjEwgrYrxpKuHMES1Bj63uvlOCg1hjxcoCVoTWRGB97ePRyim6LdgYnvHm10Ou1X40pyf49I6NqG1E36ku4FUHSzxpGj77ST37wK0AEbaTMxhHt5ElwsVB1UYJPFjaFNmM3OktMloUcR23c2C2JDZwHxa4_omHHh7zrP-UJUZbl2ilQL2Oe_4ygcP04ZUY1oSpzkKuKmasR9BTeMA1JxUTatVQqRqWILw6w1uRTLwQTNYw"/>
+<div class="absolute top-3 right-3">
+<span class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">Active</span>
+</div>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Python Backend Masters</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Alex Chen
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#python</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#django</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 42 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Stylized javascript logo with digital elements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv8y7YRnQHRdKzDTX7xlzgGuo2cMZkNk2BVxJGfBbEoK-Gl86R1wZO0naZTqMwH4x7yo7wu4qlX9nzTCN5o0QT8zzsNpa3fcXVbhnolUGiKGgpEuPSprJdVubcWeXrtjD2SfeegB6h3uHPKg7e7hnCV3ZcANfOeYNV71ZAtES2amHxFqA_a6DkySFnEf54dgFce63UBd-ARp0l2UOpPor9QoXFPY0sQZDZ6CbmHG-307oFork1Mx8Yrii8fYE5_9IVCk93B-YFZpg"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">JS Frameworks Hub</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Sarah Smith
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#javascript</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#react</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 28 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Data visualization graphs and network lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHgMObq7cwt4lx-39308hPvFweYU0NOSPC-V3Wceiw-xZGi_h7ZQzKVtxynO6W59BsBKWlvM0xFi_Wen9pUgNFeYs4LOFe6sQS3mYXM1LujuR8Zaii66yl1LKf9BEcTL4pNzrXtZeMHaBsDEofWLsUoR4VB29-S1bqm9l0UHqhDwAbUMHMq-ODZuMgH6eyDmNEdr5bvB0rWwVJX5fyZNsOMSa2dBfdFSmYCJUxzHtRkODXTN9ZnLDeRKACYGzCx_Vu1H3pNy8EGTM"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Data Science Collab</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Dr. Aris
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#pandas</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#ml</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 56 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Mobile app interface elements and device icons" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjxMCJOOl6_8QhG5jXKGQLlig-nfsO9FK72PqEFfb7nUKzKKibjWmUWF080iWPyKeueQyuawIKORBCEM3HDTr7xE0gJ3RfobsZpY1MYG5QoHgdyU2qtd9e0_RHmkp-sAgjhD0nD34OHZ4NOKVqxlreen0Ca437XsmPb8lEs8D37ZvlTFFHDw9xR8M3f0gvsxoNgABQHGl0H_HhpFCCFCInoVFqt-YeiBQHEPMWVz6nUqVNBijwMAON_OUmiledXeWolDZfFZ-vMD4"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Mobile Dev Squad</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Mike Ross
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#flutter</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#dart</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 15 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Card 5 (Additional Example) -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cloud computing icons and server graphics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBgj3yXWEwryvzXeDygrhL15Clsah5EIkOKefPmq5UAcIwpqHcl7cCorhfX1PtTrGm8dVUvJXs5xFQXJwMxR_48JbqJpGVTomG-LoOkWWmPfVgZ3loUIconhkaAEE0LEmqkje4i2VcR5jStFp9yn6vUTxZ85SU5Yyn6JZWdZflB3AWmHjcJY2w3SyOSVDZSaLpNVmBYbmrEP96z7Gf4MwhQs15NZi9chwkwl50sXYtIiysopmTtle2_3QQ5oIFU8gyUJ7ohRPNceM"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Cloud Native Ninjas</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Jenna Doe
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#kubernetes</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#aws</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 89 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Card 6 (Additional Example) -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/5">
+<div class="h-40 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-transparent"></div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Rust language logo with mechanical gears" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoDetAWwYBbn_KXx5qAuCIEOCRjqLKN3rwq7zlFNyrX_ZIFhqHWJNkoxCsggJiMJFPF1scUEeZzYw1Lg2IzckrFDW6r5Dq9rKBkLi9cvCd1YU3ZJPdKiUpNAOGkyFFpmxHyaSNvUDwBMS61m_RQ5C1OF_fO7cOJ63iu8hHPxm4PjeJm2PrEljVWfKfiN_D1IXQAW3qZUqwMApWniwYk478ROSm2JoLJEPNfowQNaW-k7NWu85iyndt26sW4ulfvUkY0IVC7jat2nQ"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Rust Systems Group</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-base">person</span> Owner: Leo Van
+                            </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#rust</span>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md">#systems</span>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span> 31 members
+                                </span>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-16 flex justify-center">
+<button class="flex items-center gap-2 px-8 py-3 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-600 dark:text-slate-400 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Load More Rooms
+                        <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-12">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<div class="flex justify-center items-center gap-2 mb-6">
+<div class="bg-primary p-1.5 rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">terminal</span>
+</div>
+<span class="text-lg font-bold">CodeCollab</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                    © 2024 CodeCollab Inc. Built for developers, by developers.
+                </p>
+</div>
+</footer>
+</div>
+</body></html>

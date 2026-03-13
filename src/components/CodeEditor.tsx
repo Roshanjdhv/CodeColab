@@ -1,9 +1,23 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { useMutation, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { toast } from "sonner";
 import { Id } from "../../convex/_generated/dataModel";
 import { CodeMentorChat } from "./CodeMentorChat";
+import { 
+  Play, 
+  Zap, 
+  BrainCircuit, 
+  Sparkles, 
+  Terminal, 
+  FileCode, 
+  X,
+  ChevronDown,
+  Monitor,
+  GitBranch,
+  RefreshCw,
+  Cpu
+} from "lucide-react";
 
 interface CodeEditorProps {
   file: any;
@@ -11,7 +25,11 @@ interface CodeEditorProps {
   roomMembers: any[];
 }
 
-export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
+export interface CodeEditorHandle {
+  handleExecute: () => Promise<void>;
+}
+
+export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(({ file, onExecute, roomMembers }, ref) => {
   const [code, setCode] = useState(file?.content || "");
   const [isExecuting, setIsExecuting] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
@@ -29,6 +47,47 @@ export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
   const completeCode = useAction(api.codementor.completeCode);
   const analyzeError = useAction(api.codementor.analyzeError);
   const optimizeCode = useAction(api.codementor.optimizeCode);
+
+  const handleExecute = async () => {
+    if (!file) return;
+    
+    setIsExecuting(true);
+    try {
+      const result = await executeCode({
+        roomId: file.roomId as Id<"rooms">,
+        fileId: file._id as Id<"files">,
+        language: file.language,
+        code: code,
+      });
+      
+      // If there's an error, offer AI analysis
+      if (result.error) {
+        setAiSuggestion(`Error detected: ${result.error}`);
+        setShowAIPanel(true);
+      }
+      
+      onExecute(result);
+      toast.success("Code executed successfully!");
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Execution failed";
+      toast.error("Failed to execute code");
+      onExecute({
+        output: "",
+        error: errorMessage,
+        executionTime: 0,
+      });
+      
+      // Offer AI error analysis
+      setAiSuggestion(`Execution error: ${errorMessage}`);
+      setShowAIPanel(true);
+    } finally {
+      setIsExecuting(false);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    handleExecute
+  }));
 
   // Update local code when file content changes (real-time from other users)
   useEffect(() => {
@@ -79,42 +138,6 @@ export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
     };
   }, []);
 
-  const handleExecute = async () => {
-    if (!file) return;
-    
-    setIsExecuting(true);
-    try {
-      const result = await executeCode({
-        roomId: file.roomId as Id<"rooms">,
-        fileId: file._id as Id<"files">,
-        language: file.language,
-        code: code,
-      });
-      
-      // If there's an error, offer AI analysis
-      if (result.error) {
-        setAiSuggestion(`Error detected: ${result.error}`);
-        setShowAIPanel(true);
-      }
-      
-      onExecute(result);
-      toast.success("Code executed successfully!");
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Execution failed";
-      toast.error("Failed to execute code");
-      onExecute({
-        output: "",
-        error: errorMessage,
-        executionTime: 0,
-      });
-      
-      // Offer AI error analysis
-      setAiSuggestion(`Execution error: ${errorMessage}`);
-      setShowAIPanel(true);
-    } finally {
-      setIsExecuting(false);
-    }
-  };
 
   const handleKeyDown = async (e: React.KeyboardEvent) => {
     if (e.key === "Tab") {
@@ -254,79 +277,85 @@ export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
   }
 
   return (
-    <div className="h-full flex flex-col bg-gray-900">
-      {/* Header */}
-      <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <h3 className="text-white font-medium">{file.name}</h3>
-          <span className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">
-            {file.language}
-          </span>
+    <div className="h-full flex flex-col bg-[#1e1e2e] font-display">
+      {/* Editor Tabs */}
+      <div className="flex items-center bg-[#181825] h-10 px-2 gap-px border-b border-black/20">
+        <div className="flex items-center gap-2 px-4 h-full bg-[#1e1e2e] text-white text-xs font-medium border-t-2 border-primary group relative shadow-sm">
+          <FileCode className="w-3.5 h-3.5 text-amber-500" />
+          <span>{file.name}</span>
+          <X className="w-3 h-3 text-slate-500 hover:bg-white/10 rounded ml-1 transition-colors cursor-pointer" />
+        </div>
+        {/* Mock for other tab */}
+        <div className="flex items-center gap-2 px-4 h-full text-slate-500 text-xs font-medium hover:bg-white/5 cursor-pointer transition-colors group">
+           <FileCode className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100" />
+           <span>config.json</span>
+        </div>
+      </div>
+
+      {/* Toolbar Above Code */}
+      <div className="bg-[#1e1e2e] border-b border-white/5 px-4 py-2 flex justify-between items-center z-10">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active File</span>
+            <div className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded-lg border border-white/5">
+              <span className="text-xs font-bold text-slate-200">{file.name}</span>
+            </div>
+          </div>
+          
           {lastModifiedBy && (
-            <span className="text-xs text-blue-400 animate-pulse">
-              Modified by {lastModifiedBy}
-            </span>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 rounded-full animate-in fade-in zoom-in">
+              <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[10px] font-bold text-primary uppercase tracking-tighter">
+                {lastModifiedBy} editing
+              </span>
+            </div>
           )}
+          
           {isLoadingAI && (
-            <span className="text-xs text-purple-400 animate-pulse flex items-center space-x-1">
-              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-purple-400"></div>
-              <span>CodeMentor working...</span>
-            </span>
+            <div className="flex items-center gap-2 px-3 py-1 bg-purple-500/10 rounded-full animate-pulse">
+               <Sparkles className="w-3 h-3 text-purple-400" />
+               <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">AI Syncing...</span>
+            </div>
           )}
         </div>
         
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           {/* AI Panel Toggle */}
           <button
             onClick={() => setShowAIPanel(!showAIPanel)}
-            className={`px-3 py-1 text-xs rounded transition-colors ${
+            className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
               showAIPanel
-                ? "bg-purple-600 text-white"
-                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                ? "bg-purple-500 text-white shadow-lg shadow-purple-500/20"
+                : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
             }`}
           >
-            🤖 AI
+            <Cpu className="w-3.5 h-3.5" />
+            <span>Analysis</span>
           </button>
           
           {/* CodeMentor Chat */}
           <button
             onClick={() => setShowCodeMentor(true)}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 text-xs rounded transition-colors"
+            className="flex items-center gap-2 px-3 h-8 rounded-lg bg-primary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95"
             title="Chat with CodeMentor (Ctrl+/)"
           >
-            💬 CodeMentor
+            <BrainCircuit className="w-3.5 h-3.5" />
+            <span>Mentor</span>
           </button>
           
           {file.language === "html" && (
             <button
               onClick={() => setIsPreviewMode(!isPreviewMode)}
-              className={`px-3 py-1 text-xs rounded transition-colors ${
+              className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
                 isPreviewMode
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  ? "bg-sky-500 text-white shadow-lg shadow-sky-500/20"
+                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
               }`}
             >
-              {isPreviewMode ? "Code" : "Preview"}
+              <Monitor className="w-3.5 h-3.5" />
+              <span>{isPreviewMode ? "Source" : "Preview"}</span>
             </button>
           )}
-          
-          <button
-            onClick={handleExecute}
-            disabled={isExecuting}
-            className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white px-3 py-1 text-xs rounded transition-colors flex items-center space-x-1"
-          >
-            {isExecuting ? (
-              <>
-                <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
-                <span>Running...</span>
-              </>
-            ) : (
-              <>
-                <span>▶</span>
-                <span>Run</span>
-              </>
-            )}
-          </button>
         </div>
       </div>
 
@@ -353,66 +382,85 @@ export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
             )}
           </div>
 
-          {/* Footer */}
-          <div className="bg-gray-800 border-t border-gray-700 px-4 py-2 flex justify-between items-center text-xs text-gray-400">
-            <div className="flex items-center space-x-4">
-              <span>Lines: {code.split('\n').length}</span>
-              <span>Characters: {code.length}</span>
-              <span>Language: {file.language}</span>
+          {/* Premium Status Bar */}
+          <div className="h-6 bg-primary text-white flex justify-between items-center px-4 text-[9px] font-bold uppercase tracking-wider relative z-20 shadow-[0_-2px_10px_rgba(80,72,229,0.3)]">
+            <div className="flex items-center gap-5">
+              <div className="flex items-center gap-1.5 group cursor-pointer hover:text-white/80 transition-colors">
+                <GitBranch className="w-2.5 h-2.5" />
+                <span>main*</span>
+              </div>
+              <div className="flex items-center gap-1.5 group cursor-pointer hover:text-white/80 transition-colors">
+                <RefreshCw className="w-2.5 h-2.5" />
+                <span>Synced</span>
+              </div>
             </div>
             
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-500">Tab: AI Complete • Ctrl+Enter: Run • Ctrl+/: CodeMentor</span>
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" title="Real-time sync active"></div>
+            <div className="flex items-center gap-5">
+              <span>Lines: {code.split('\n').length}</span>
+              <span>Col 12</span>
+              <span>Spaces: 4</span>
+              <span>UTF-8</span>
+              <div className="size-1 w-px bg-white/30 h-3" />
+              <div className="flex items-center gap-2 text-emerald-300">
+                <div className="size-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                <span>Neural Engine Active</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* AI Panel */}
+        {/* AI Panel Pane */}
         {showAIPanel && (
-          <div className="w-80 bg-gray-800 border-l border-gray-700 flex flex-col">
-            <div className="p-3 border-b border-gray-700">
-              <div className="flex justify-between items-center">
-                <h4 className="text-white font-medium flex items-center space-x-2">
-                  <span>🤖</span>
-                  <span>CodeMentor AI</span>
-                </h4>
+          <div className="w-80 bg-[#121121] border-l border-white/5 flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+            <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <div className="size-6 bg-purple-500 rounded flex items-center justify-center text-white">
+                     <Sparkles className="w-3.5 h-3.5" />
+                  </div>
+                  <h4 className="text-white text-[10px] font-bold uppercase tracking-widest">CodeMentor AI</h4>
+                </div>
                 <button
                   onClick={() => setShowAIPanel(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-slate-500 hover:text-white transition-colors"
                 >
-                  ✕
+                  <X className="w-4 h-4" />
+                </button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={handleOptimizeCode}
+                  disabled={isLoadingAI}
+                  className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group"
+                >
+                  <Zap className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Optimize</span>
+                </button>
+                
+                <button
+                  onClick={() => setShowCodeMentor(true)}
+                  className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group"
+                >
+                  <BrainCircuit className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Mentor</span>
                 </button>
               </div>
-            </div>
-            
-            <div className="p-3 space-y-2">
-              <button
-                onClick={handleOptimizeCode}
-                disabled={isLoadingAI}
-                className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white px-3 py-2 rounded text-sm transition-colors"
-              >
-                ⚡ Optimize Code
-              </button>
               
-              <button
-                onClick={() => setShowCodeMentor(true)}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm transition-colors"
-              >
-                💬 Ask CodeMentor
-              </button>
-            </div>
-            
-            {aiSuggestion && (
-              <div className="flex-1 p-3 overflow-y-auto max-h-96">
-                <div className="bg-gray-700 rounded p-3">
-                  <h5 className="text-purple-400 font-medium mb-2">AI Suggestion:</h5>
-                  <div className="text-gray-300 text-sm whitespace-pre-wrap overflow-y-auto max-h-80">
-                    {aiSuggestion}
+              {aiSuggestion && (
+                <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                       <Sparkles className="w-12 h-12 text-purple-400" />
+                    </div>
+                    <h5 className="text-[10px] font-bold text-purple-400 uppercase tracking-widest mb-3">AI Intelligence</h5>
+                    <div className="text-slate-300 text-xs leading-relaxed prose prose-invert prose-sm max-w-none">
+                      {aiSuggestion}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -426,4 +474,4 @@ export function CodeEditor({ file, onExecute, roomMembers }: CodeEditorProps) {
       />
     </div>
   );
-}
+});

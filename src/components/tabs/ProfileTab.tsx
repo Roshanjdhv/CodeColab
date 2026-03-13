@@ -138,38 +138,38 @@ export function ProfileTab() {
       <div className="mx-auto max-w-[1000px] w-full">
         <div className="flex flex-col gap-8 lg:flex-row py-8">
           {/* Sidebar Navigation */}
-          <aside className="w-full lg:w-64 flex flex-col gap-2 shrink-0">
-            <div className="mb-4 px-3">
+          <aside className="w-full lg:w-64 flex flex-row lg:flex-col gap-2 shrink-0 overflow-x-auto lg:overflow-visible no-scrollbar pb-2 lg:pb-0">
+            <div className="hidden lg:block mb-4 px-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Account Settings</h3>
             </div>
-            <button className="flex items-center gap-3 rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary text-left">
-              <User className="w-5 h-5" />
-              <span>Public Profile</span>
+            <button className="flex items-center gap-3 rounded-xl bg-indigo-500/10 px-4 py-3 text-sm font-bold text-indigo-400 text-left whitespace-nowrap lg:whitespace-normal">
+              <User className="w-5 h-5 flex-shrink-0" />
+              <span>General</span>
             </button>
-            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
-              <Settings className="w-5 h-5" />
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-400 hover:bg-slate-800 hover:text-white transition-all text-left whitespace-nowrap lg:whitespace-normal">
+              <Settings className="w-5 h-5 flex-shrink-0" />
               <span>Preferences</span>
             </button>
-            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
-              <Lock className="w-5 h-5" />
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-400 hover:bg-slate-800 hover:text-white transition-all text-left whitespace-nowrap lg:whitespace-normal">
+              <Lock className="w-5 h-5 flex-shrink-0" />
               <span>Security</span>
             </button>
-            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:bg-white hover:shadow-sm hover:text-slate-900 transition-all text-left">
-              <Bell className="w-5 h-5" />
+            <button className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-slate-400 hover:bg-slate-800 hover:text-white transition-all text-left whitespace-nowrap lg:whitespace-normal">
+              <Bell className="w-5 h-5 flex-shrink-0" />
               <span>Notifications</span>
             </button>
-            <div className="my-4 h-[1px] bg-slate-200" />
+            <div className="hidden lg:block my-4 h-[1px] bg-slate-800" />
             <button 
               onClick={() => signOut()}
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50 transition-all text-left"
+              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-rose-500 hover:bg-rose-500/10 transition-all text-left whitespace-nowrap lg:whitespace-normal"
             >
-              <LogOut className="w-5 h-5" />
+              <LogOut className="w-5 h-5 flex-shrink-0" />
               <span>Sign Out</span>
             </button>
           </aside>
 
           {/* Content Area */}
-          <div className="flex-1 bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
+          <div className="flex-1 bg-slate-800/40 backdrop-blur-xl rounded-3xl border border-slate-700/50 p-6 md:p-8">
             <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-100 pb-8 gap-4">
               <div>
                 <h1 className="text-2xl font-bold tracking-tight text-slate-900">Public Profile</h1>

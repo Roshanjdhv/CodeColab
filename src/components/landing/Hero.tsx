@@ -24,11 +24,11 @@ export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding
             <span>CodeCollab v2.0 is live</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
             Collaborate, <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Code</span>, <br className="hidden md:block"/> and Build Together
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl">
+          <p className="text-base md:text-xl text-slate-400 mb-8 max-w-2xl">
             CodeCollab allows multiple developers to write, edit, and execute code simultaneously in real time. Experience the future of team software development.
           </p>
           
@@ -40,7 +40,7 @@ export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding
               {isAuthenticated ? 'Go to Dashboard' : 'Start Coding'}
               <Terminal className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 border border-slate-700">
+            <button className="hidden sm:flex w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors items-center justify-center gap-2 border border-slate-700">
               <Play className="w-5 h-5" />
               View Demo
             </button>

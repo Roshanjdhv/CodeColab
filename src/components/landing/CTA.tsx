@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
-export function CTA({ onStartCoding }: { onStartCoding: () => void }) {
+export function CTA({ onStartCoding, isAuthenticated = false }: { onStartCoding: () => void, isAuthenticated?: boolean }) {
   return (
     <section className="w-full py-32 bg-slate-900 border-t border-slate-800 relative overflow-hidden">
       {/* Background glow */}
@@ -38,7 +38,7 @@ export function CTA({ onStartCoding }: { onStartCoding: () => void }) {
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_40px_rgba(79,70,229,0.4)] transition-all flex items-center justify-center gap-2 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                Create Room
+                {isAuthenticated ? 'Open Dashboard' : 'Create Room'}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-slate-800 hover:bg-slate-700 text-white transition-colors border border-slate-700">

@@ -56,14 +56,15 @@ function AuthenticatedApp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="/explore" replace />} />
-          <Route path="explore" element={<ExploreTab onJoinRoom={setCurrentRoomId} />} />
-          <Route path="public" element={<PublicTab />} />
-          <Route path="requests" element={<RequestsTab />} />
-          <Route path="chat" element={<ChatTab />} />
-          <Route path="profile" element={<ProfileTab />} />
+        <Route path="/" element={<LandingPage onSignInClick={() => window.location.href = "/explore"} isAuthenticated={true} />} />
+        <Route element={<Layout />}>
+          <Route path="/explore" element={<ExploreTab onJoinRoom={setCurrentRoomId} />} />
+          <Route path="/public" element={<PublicTab />} />
+          <Route path="/requests" element={<RequestsTab />} />
+          <Route path="/chat" element={<ChatTab />} />
+          <Route path="/profile" element={<ProfileTab />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

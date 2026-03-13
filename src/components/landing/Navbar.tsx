@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Code2, Github, Menu, X } from 'lucide-react';
 
-export function Navbar({ onSignInClick }: { onSignInClick: () => void }) {
+export function Navbar({ onSignInClick, isAuthenticated = false }: { onSignInClick: () => void, isAuthenticated?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -47,17 +47,19 @@ export function Navbar({ onSignInClick }: { onSignInClick: () => void }) {
           <a href="https://github.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors">
             <Github className="w-5 h-5" />
           </a>
-          <button 
-            onClick={onSignInClick}
-            className="px-4 py-2 rounded-lg font-medium text-sm border border-slate-700 hover:bg-slate-800 transition-colors"
-          >
-            Sign In
-          </button>
+          {!isAuthenticated && (
+            <button 
+              onClick={onSignInClick}
+              className="px-4 py-2 rounded-lg font-medium text-sm border border-slate-700 hover:bg-slate-800 transition-colors"
+            >
+              Sign In
+            </button>
+          )}
           <button 
             onClick={onSignInClick}
             className="px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_15px_rgba(79,70,229,0.3)] transition-all"
           >
-            Start Coding
+            {isAuthenticated ? 'Dashboard' : 'Start Coding'}
           </button>
         </div>
 
@@ -76,17 +78,19 @@ export function Navbar({ onSignInClick }: { onSignInClick: () => void }) {
           <a href="#features" className="text-slate-300 hover:text-white font-medium" onClick={() => setMobileMenuOpen(false)}>Features</a>
           <a href="#how-it-works" className="text-slate-300 hover:text-white font-medium" onClick={() => setMobileMenuOpen(false)}>How it Works</a>
           <a href="#benefits" className="text-slate-300 hover:text-white font-medium" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
-          <button 
-            onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
-            className="w-full py-2 rounded-lg font-medium text-sm border border-slate-600 mt-4"
-          >
-            Sign In
-          </button>
+          {!isAuthenticated && (
+            <button 
+              onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
+              className="w-full py-2 rounded-lg font-medium text-sm border border-slate-600 mt-4"
+            >
+              Sign In
+            </button>
+          )}
           <button 
             onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
             className="w-full py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white"
           >
-            Start Coding
+            {isAuthenticated ? 'Dashboard' : 'Start Coding'}
           </button>
         </div>
       )}

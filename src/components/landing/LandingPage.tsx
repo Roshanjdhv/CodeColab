@@ -10,7 +10,7 @@ import { Testimonials } from './Testimonials';
 import { CTA } from './CTA';
 import { Footer } from './Footer';
 
-export function LandingPage({ onSignInClick }: { onSignInClick: () => void }) {
+export function LandingPage({ onSignInClick, isAuthenticated = false }: { onSignInClick: () => void, isAuthenticated?: boolean }) {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-50 font-sans selection:bg-indigo-500/30">
       {/* Background Gradients */}
@@ -20,16 +20,16 @@ export function LandingPage({ onSignInClick }: { onSignInClick: () => void }) {
       </div>
 
       <div className="relative z-10 flex flex-col items-center">
-        <Navbar onSignInClick={onSignInClick} />
+        <Navbar onSignInClick={onSignInClick} isAuthenticated={isAuthenticated} />
         <main className="w-full flex flex-col items-center">
-          <Hero onStartCoding={onSignInClick} />
+          <Hero onStartCoding={onSignInClick} isAuthenticated={isAuthenticated} />
           <FeatureSlider />
           <HowItWorks />
           <ProductShowcase />
           <Benefits />
           <TechStack />
           <Testimonials />
-          <CTA onStartCoding={onSignInClick} />
+          <CTA onStartCoding={onSignInClick} isAuthenticated={isAuthenticated} />
         </main>
         <Footer />
       </div>

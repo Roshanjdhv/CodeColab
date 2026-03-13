@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Users, Play, Code2 } from 'lucide-react';
 
-export function Hero({ onStartCoding }: { onStartCoding: () => void }) {
+export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding: () => void, isAuthenticated?: boolean }) {
   return (
     <section className="relative w-full pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center overflow-hidden">
       {/* Background decorations */}
@@ -37,7 +37,7 @@ export function Hero({ onStartCoding }: { onStartCoding: () => void }) {
               onClick={onStartCoding}
               className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_30px_rgba(79,70,229,0.3)] transition-all flex items-center justify-center gap-2 group"
             >
-              Start Coding
+              {isAuthenticated ? 'Go to Dashboard' : 'Start Coding'}
               <Terminal className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 border border-slate-700">

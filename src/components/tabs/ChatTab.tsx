@@ -41,6 +41,13 @@ export function ChatTab() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleSelectFriend = (friend: any) => {
+    setSelectedFriend(friend);
+    if (friend.unreadCount > 0) {
+      markAsRead({ fromUserId: friend.friendId });
+    }
+  };
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!messageText.trim() || !selectedFriend) return;

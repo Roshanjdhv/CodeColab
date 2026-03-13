@@ -257,7 +257,7 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
                 
                 <div className="flex items-center gap-2 mb-4 text-slate-400">
                   <User className="w-4 h-4" />
-                  <span className="text-sm truncate">Owner: <span className="text-slate-300 font-medium">{room.ownerName || "Anonymous"}</span></span>
+                  <span className="text-sm truncate">Owner: <span className="text-slate-300 font-medium">{room.creatorName || "Anonymous"}</span></span>
                 </div>
 
                 <p className="text-slate-400 text-sm mb-6 line-clamp-2 min-h-[2.5rem] leading-relaxed">
@@ -304,8 +304,8 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
 
       {showCreateModal && (
         <CreateRoomModal 
-          isOpen={showCreateModal} 
-          onClose={() => setShowCreateModal(false)} 
+          onClose={() => setShowCreateModal(false)}
+          onRoomCreated={onJoinRoom}
         />
       )}
 

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { SignOutButton } from "../SignOutButton";
@@ -9,7 +11,9 @@ import {
   MessageCircle, 
   User, 
   Terminal,
-  ChevronDown
+  ChevronDown,
+  Menu,
+  X
 } from "lucide-react";
 
 export function Layout() {

@@ -15,7 +15,9 @@ import {
   ChevronDown, 
   Terminal,
   Globe,
-  ArrowRight
+  ArrowRight,
+  Shield,
+  ShieldAlert
 } from "lucide-react";
 
 const ROOM_COLORS = [
@@ -35,7 +37,7 @@ const ROOM_COLORS = [
 
 const getRoomColor = (room: any) => {
   if (room.color) return room.color;
-  const hash = room._id.split("").reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
+  const hash = (room._id || "").split("").reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
   return ROOM_COLORS[hash % ROOM_COLORS.length];
 };
 
@@ -102,13 +104,14 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
   const getButtonAction = (room: any) => {
     const isMyRoom = myRooms?.some(r => r._id === room._id);
     const isJoinedRoom = joinedRooms?.some(r => r._id === room._id);
+    const isPublic = room.type === "public";
     
     if (isMyRoom) {
       return { label: "Open", onClick: () => onJoinRoom(room._id) };
     } else if (isJoinedRoom) {
       return { label: "Enter", onClick: () => onJoinRoom(room._id) };
     } else {
-      return { label: room.isPublic ? "Join Now" : "Request", onClick: () => handleJoinRoom(room) };
+      return { label: isPublic ? "Join Now" : "Request", onClick: () => handleJoinRoom(room) };
     }
   };
 
@@ -122,10 +125,12 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
 
   const uniqueRooms = filteredRooms.filter((room, index, self) => 
     index === self.findIndex(r => r._id === room._id)
-  ).filter(room => 
-    room.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    room.language.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ).filter(room => {
+    const search = searchQuery.toLowerCase();
+    const name = (room.name || "").toLowerCase();
+    const lang = (room.language || "").toLowerCase();
+    return name.includes(search) || lang.includes(search);
+  });
 
   return (
     <div className="flex flex-col min-h-full">
@@ -224,6 +229,7 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {uniqueRooms.map((room) => {
           const buttonAction = getButtonAction(room);
+          const isPublic = room.type === "public";
           return (
             <div
               key={room._id}
@@ -238,12 +244,13 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
                   <Terminal className="w-12 h-12 opacity-40 group-hover:scale-110 transition-all duration-500 group-hover:opacity-70" />
                 </div>
                 <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md border ${
-                    room.isPublic 
+                  <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md border flex items-center gap-1.5 ${
+                    isPublic 
                       ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" 
                       : "bg-amber-500/20 text-amber-400 border-amber-500/30"
                   }`}>
-                    {room.isPublic ? "Public" : "Private"}
+                    {isPublic ? <Globe className="w-3 h-3" /> : <Shield className="w-3 h-3" />}
+                    {isPublic ? "Public" : "Private"}
                   </span>
                 </div>
               </div>
@@ -281,7 +288,7 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
                     className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20`}
                   >
                     {buttonAction.label}
-                    {buttonAction.label === "Join Now" && <ArrowRight className="w-3.5 h-3.5" />}
+                    {(buttonAction.label === "Join Now" || buttonAction.label === "Open" || buttonAction.label === "Enter") && <ArrowRight className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>
@@ -304,7 +311,7 @@ export function ExploreTab({ onJoinRoom }: ExploreTabProps) {
 
       {showCreateModal && (
         <CreateRoomModal 
-          onClose={() => setShowCreateModal(false)}
+          onClose={() => setShowCreateModal(false)} 
           onRoomCreated={onJoinRoom}
         />
       )}

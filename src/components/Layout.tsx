@@ -138,13 +138,13 @@ export function Layout() {
                 className="fixed inset-0 bg-black/60 backdrop-blur-md z-[60] lg:hidden"
               />
 
-              {/* Drawer - explicit solid dark background */}
+              {/* Drawer - Full Screen for maximum clarity */}
               <motion.div
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="fixed top-0 right-0 bottom-0 w-[92%] max-w-[480px] bg-slate-950 border-l border-white/10 z-[70] lg:hidden shadow-[0_0_60px_rgba(0,0,0,0.7)] flex flex-col"
+                className="fixed inset-0 w-full h-full bg-slate-950 z-[70] lg:hidden flex flex-col"
               >
                 <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#121121]">
                   <div className="flex items-center space-x-3">

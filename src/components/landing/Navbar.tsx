@@ -98,7 +98,7 @@ export function Navbar({ onSignInClick, isAuthenticated = false }: { onSignInCli
           closed: { x: '100%' }
         }}
         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-        className="fixed top-0 right-0 bottom-0 w-[95%] max-w-[500px] bg-slate-950 border-l border-white/10 z-[70] md:hidden shadow-[0_0_60px_rgba(0,0,0,0.7)]"
+        className="fixed inset-0 w-full h-full bg-slate-950 z-[70] md:hidden shadow-2xl"
       >
         <div className="flex flex-col h-full">
           <div className="p-6 flex items-center justify-between border-b border-white/5 bg-[#121121]">

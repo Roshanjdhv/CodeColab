@@ -82,33 +82,61 @@ export function Navbar({ onSignInClick, isAuthenticated = false }: { onSignInCli
         initial={false}
         animate={mobileMenuOpen ? "open" : "closed"}
         variants={{
-          open: { opacity: 1, height: 'auto', display: 'block' },
-          closed: { opacity: 0, height: 0, transitionEnd: { display: 'none' } }
+          open: { opacity: 1, display: 'block' },
+          closed: { opacity: 0, transitionEnd: { display: 'none' } }
         }}
-        className="md:hidden bg-card/95 backdrop-blur-xl border-b border-border overflow-hidden"
+        className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] md:hidden"
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Mobile Menu Content (Right Sidebar) */}
+      <motion.div 
+        initial={false}
+        animate={mobileMenuOpen ? "open" : "closed"}
+        variants={{
+          open: { x: 0 },
+          closed: { x: '100%' }
+        }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-card/95 backdrop-blur-xl border-l border-border z-[70] md:hidden shadow-2xl"
       >
-        <div className="px-6 py-8 flex flex-col space-y-6">
-          <div className="flex flex-col space-y-4">
-            <a href="#features" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-2 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Features</a>
-            <a href="#how-it-works" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-2 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>How it Works</a>
-            <a href="#benefits" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-2 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+        <div className="flex flex-col h-full">
+          <div className="p-6 flex items-center justify-between border-b border-border">
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
+              Menu
+            </span>
+            <button 
+              className="text-muted-foreground hover:text-foreground p-2 bg-muted/50 rounded-lg border border-border transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
-          
-          <div className="pt-4 border-t border-border space-y-4">
-            {!isAuthenticated && (
+
+          <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col space-y-6">
+            <div className="flex flex-col space-y-2">
+              <a href="#features" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Features</a>
+              <a href="#how-it-works" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>How it Works</a>
+              <a href="#benefits" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+              <a href="#testimonials" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Testimonials</a>
+            </div>
+            
+            <div className="pt-6 border-t border-border space-y-4">
+              {!isAuthenticated && (
+                <button 
+                  onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
+                  className="w-full py-4 rounded-xl font-bold text-lg border border-border text-foreground hover:bg-muted transition-all flex items-center justify-center"
+                >
+                  Sign In
+                </button>
+              )}
               <button 
                 onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
-                className="w-full py-4 rounded-xl font-bold text-lg border border-border text-foreground hover:bg-muted transition-all flex items-center justify-center"
+                className="w-full py-4 rounded-xl font-bold text-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all flex items-center justify-center active:scale-[0.98]"
               >
-                Sign In
+                {isAuthenticated ? 'Dashboard' : 'Start Coding'}
               </button>
-            )}
-            <button 
-              onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
-              className="w-full py-4 rounded-xl font-bold text-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all flex items-center justify-center active:scale-[0.98]"
-            >
-              {isAuthenticated ? 'Dashboard' : 'Start Coding'}
-            </button>
+            </div>
           </div>
         </div>
       </motion.div>

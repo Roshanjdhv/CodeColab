@@ -41,7 +41,8 @@ export function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background border-x border-border max-w-[100vw] overflow-hidden flex flex-col transition-colors duration-300">
+    <>
+      <div className="min-h-screen bg-background border-x border-border max-w-[100vw] overflow-hidden flex flex-col transition-colors duration-300">
       {/* Header */}
       <header className="bg-card/80 backdrop-blur-md border-b border-border px-4 md:px-6 py-3 md:py-4 sticky top-0 z-50">
         <div className="w-full flex justify-between items-center">

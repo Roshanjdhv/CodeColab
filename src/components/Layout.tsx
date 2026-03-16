@@ -144,7 +144,7 @@ export function Layout() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[400px] bg-[#0B0A15] border-l border-white/10 z-[70] lg:hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col"
+                className="fixed top-0 right-0 bottom-0 w-[92%] max-w-[480px] bg-slate-950 border-l border-white/10 z-[70] lg:hidden shadow-[0_0_60px_rgba(0,0,0,0.7)] flex flex-col"
               >
                 <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#121121]">
                   <div className="flex items-center space-x-3">

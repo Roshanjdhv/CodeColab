@@ -91,7 +91,7 @@ export function Navbar({ onSignInClick, isAuthenticated = false }: { onSignInCli
 
       {/* Mobile Menu Content (Right Sidebar) */}
       <motion.div 
-        initial={false}
+        initial="closed"
         animate={mobileMenuOpen ? "open" : "closed"}
         variants={{
           open: { x: 0 },

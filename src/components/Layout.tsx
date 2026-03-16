@@ -125,46 +125,77 @@ export function Layout() {
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown */}
+        {/* Mobile Navigation Drawer */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-border mt-4 pt-4 overflow-hidden"
-            >
-              <div className="grid grid-cols-1 gap-2">
-                {tabs.map((tab) => (
-                  <NavLink
-                    key={tab.id}
-                    to={tab.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      `px-4 py-3 text-sm font-bold transition-all rounded-xl flex items-center justify-between ${
-                        isActive
-                          ? "text-primary-foreground bg-primary shadow-lg shadow-primary/20"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                      }`
-                    }
-                  >
-                    <div className="flex items-center gap-3">
-                      {tab.icon}
-                      {tab.label}
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+                className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] lg:hidden"
+              />
+
+              {/* Drawer */}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-card border-l border-border z-[70] lg:hidden shadow-2xl flex flex-col"
+              >
+                <div className="p-4 border-b border-border flex justify-between items-center bg-card/50 backdrop-blur-md">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                      <Terminal className="w-4 h-4 text-white" />
                     </div>
-                    {tab.badge && (
-                      <span className="bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                        {tab.badge}
-                      </span>
-                    )}
-                  </NavLink>
-                ))}
-                <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
-                  <SignOutButton />
-                  <div className="text-xs text-muted-foreground">v2.0.4</div>
+                    <span className="font-bold">Menu</span>
+                  </div>
+                  <button 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 rounded-xl bg-muted/50 border border-border text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
                 </div>
-              </div>
-            </motion.div>
+
+                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2">
+                  {tabs.map((tab) => (
+                    <NavLink
+                      key={tab.id}
+                      to={tab.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `px-4 py-4 text-sm font-bold transition-all rounded-xl flex items-center justify-between ${
+                          isActive
+                            ? "text-primary-foreground bg-primary shadow-lg shadow-primary/20"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        }`
+                      }
+                    >
+                      <div className="flex items-center gap-3">
+                        {tab.icon}
+                        {tab.label}
+                      </div>
+                      {tab.badge && (
+                        <span className="bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                          {tab.badge}
+                        </span>
+                      )}
+                    </NavLink>
+                  ))}
+                </div>
+
+                <div className="p-4 border-t border-border bg-muted/30">
+                  <div className="flex justify-between items-center">
+                    <SignOutButton />
+                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-50">v2.0.4</div>
+                  </div>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </header>

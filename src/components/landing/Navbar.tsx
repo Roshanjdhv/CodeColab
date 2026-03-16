@@ -97,44 +97,58 @@ export function Navbar({ onSignInClick, isAuthenticated = false }: { onSignInCli
           open: { x: 0 },
           closed: { x: '100%' }
         }}
-        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-        className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-card/95 backdrop-blur-xl border-l border-border z-[70] md:hidden shadow-2xl"
+        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+        className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-[#0B0A15] border-l border-white/10 z-[70] md:hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]"
       >
         <div className="flex flex-col h-full">
-          <div className="p-6 flex items-center justify-between border-b border-border">
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
-              Menu
-            </span>
+          <div className="p-6 flex items-center justify-between border-b border-white/5 bg-[#121121]">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-tr from-primary to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
+                <Terminal className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-white tracking-tight">Navigation</span>
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">CodeCollab</span>
+              </div>
+            </div>
             <button 
-              className="text-muted-foreground hover:text-foreground p-2 bg-muted/50 rounded-lg border border-border transition-colors"
+              className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               <X className="w-6 h-6" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col space-y-6">
-            <div className="flex flex-col space-y-2">
-              <a href="#features" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Features</a>
-              <a href="#how-it-works" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>How it Works</a>
-              <a href="#benefits" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
-              <a href="#testimonials" className="text-lg text-muted-foreground hover:text-foreground font-bold flex items-center transition-colors px-4 py-3 rounded-xl hover:bg-muted" onClick={() => setMobileMenuOpen(false)}>Testimonials</a>
+          <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col space-y-6 custom-scrollbar">
+            <div className="flex flex-col space-y-3">
+              <a href="#features" className="text-lg text-slate-400 hover:text-white font-bold flex items-center transition-all px-5 py-4 rounded-2xl hover:bg-white/5 group border border-transparent hover:border-white/10" onClick={() => setMobileMenuOpen(false)}>
+                Features
+              </a>
+              <a href="#how-it-works" className="text-lg text-slate-400 hover:text-white font-bold flex items-center transition-all px-5 py-4 rounded-2xl hover:bg-white/5 group border border-transparent hover:border-white/10" onClick={() => setMobileMenuOpen(false)}>
+                How it Works
+              </a>
+              <a href="#benefits" className="text-lg text-slate-400 hover:text-white font-bold flex items-center transition-all px-5 py-4 rounded-2xl hover:bg-white/5 group border border-transparent hover:border-white/10" onClick={() => setMobileMenuOpen(false)}>
+                Benefits
+              </a>
+              <a href="#testimonials" className="text-lg text-slate-400 hover:text-white font-bold flex items-center transition-all px-5 py-4 rounded-2xl hover:bg-white/5 group border border-transparent hover:border-white/10" onClick={() => setMobileMenuOpen(false)}>
+                Testimonials
+              </a>
             </div>
             
-            <div className="pt-6 border-t border-border space-y-4">
+            <div className="pt-6 border-t border-white/5 space-y-4">
               {!isAuthenticated && (
                 <button 
                   onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
-                  className="w-full py-4 rounded-xl font-bold text-lg border border-border text-foreground hover:bg-muted transition-all flex items-center justify-center"
+                  className="w-full py-5 rounded-2xl font-bold text-lg border border-white/10 text-white hover:bg-white/5 transition-all flex items-center justify-center active:scale-[0.98]"
                 >
                   Sign In
                 </button>
               )}
               <button 
                 onClick={() => { setMobileMenuOpen(false); onSignInClick(); }}
-                className="w-full py-4 rounded-xl font-bold text-lg bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all flex items-center justify-center active:scale-[0.98]"
+                className="w-full py-5 rounded-2xl font-bold text-lg bg-primary text-white shadow-xl shadow-primary/20 transition-all flex items-center justify-center active:scale-[0.98] hover:translate-y-[-2px]"
               >
-                {isAuthenticated ? 'Dashboard' : 'Start Coding'}
+                {isAuthenticated ? 'Dashboard' : 'Start Coding Now'}
               </button>
             </div>
           </div>

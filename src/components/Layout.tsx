@@ -129,69 +129,96 @@ export function Layout() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <>
-              {/* Backdrop */}
+              {/* Backdrop - darker for better contrast */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setMobileMenuOpen(false)}
-                className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] lg:hidden"
+                className="fixed inset-0 bg-black/60 backdrop-blur-md z-[60] lg:hidden"
               />
 
-              {/* Drawer */}
+              {/* Drawer - explicit solid dark background */}
               <motion.div
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-card border-l border-border z-[70] lg:hidden shadow-2xl flex flex-col"
+                transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                className="fixed top-0 right-0 bottom-0 w-[80%] max-w-[320px] bg-[#0B0A15] border-l border-white/10 z-[70] lg:hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col"
               >
-                <div className="p-4 border-b border-border flex justify-between items-center bg-card/50 backdrop-blur-md">
+                <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#121121]">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                      <Terminal className="w-4 h-4 text-white" />
+                    <div className="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                      <Terminal className="w-5 h-5 text-white" />
                     </div>
-                    <span className="font-bold">Menu</span>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold text-white tracking-tight">Navigation</span>
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">CodeCollab</span>
+                    </div>
                   </div>
                   <button 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-xl bg-muted/50 border border-border text-muted-foreground hover:text-foreground"
+                    className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-colors"
                   >
                     <X className="w-6 h-6" />
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2">
+                <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-3 custom-scrollbar">
                   {tabs.map((tab) => (
                     <NavLink
                       key={tab.id}
                       to={tab.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className={({ isActive }) =>
-                        `px-4 py-4 text-sm font-bold transition-all rounded-xl flex items-center justify-between ${
+                        `px-5 py-4 text-sm font-bold transition-all rounded-2xl flex items-center justify-between group ${
                           isActive
-                            ? "text-primary-foreground bg-primary shadow-lg shadow-primary/20"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            ? "text-white bg-primary shadow-xl shadow-primary/20"
+                            : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10"
                         }`
                       }
                     >
-                      <div className="flex items-center gap-3">
-                        {tab.icon}
+                      <div className="flex items-center gap-4">
+                        <div className={`transition-transform group-hover:scale-110 duration-300`}>
+                          {tab.icon}
+                        </div>
                         {tab.label}
                       </div>
-                      {tab.badge && (
-                        <span className="bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {tab.badge ? (
+                        <span className="bg-destructive text-white text-[10px] font-black rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center shadow-lg ring-2 ring-background">
                           {tab.badge}
                         </span>
+                      ) : (
+                        <ChevronDown className="w-4 h-4 opacity-0 group-hover:opacity-30 -rotate-90 transition-all" />
                       )}
                     </NavLink>
                   ))}
                 </div>
 
-                <div className="p-4 border-t border-border bg-muted/30">
-                  <div className="flex justify-between items-center">
-                    <SignOutButton />
-                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest opacity-50">v2.0.4</div>
+                <div className="p-6 border-t border-white/5 bg-[#121121]/50 backdrop-blur-xl">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between mb-2">
+                       <div className="flex items-center gap-3">
+                         <div className="size-10 rounded-xl bg-slate-800 border border-white/10 overflow-hidden shadow-inner">
+                            {profile?.profileImageUrl ? (
+                              <img src={profile.profileImageUrl} alt="" className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: profile?.userColor }}>
+                                {profile?.username?.charAt(0).toUpperCase()}
+                              </div>
+                            )}
+                         </div>
+                         <div className="flex flex-col">
+                           <span className="text-xs font-bold text-white leading-none">{profile?.username}</span>
+                           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Active Now</span>
+                         </div>
+                       </div>
+                       <SignOutButton />
+                    </div>
+                    <div className="flex justify-between items-center opacity-30 px-1">
+                      <span className="text-[9px] font-bold text-slate-500 tracking-widest">STABLE RELEASE</span>
+                      <span className="text-[9px] font-bold text-slate-500 tracking-widest uppercase">v2.0.4</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>

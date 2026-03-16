@@ -277,9 +277,9 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(({ file,
   }
 
   return (
-    <div className="h-full flex flex-col bg-[#1e1e2e] font-display">
-      {/* Editor Tabs */}
-      <div className="flex items-center bg-[#181825] h-10 px-2 gap-px border-b border-black/20">
+    <div className="h-full flex flex-col bg-[#1e1e2e] font-display overflow-hidden">
+      {/* Editor Tabs - Hidden on small mobile */}
+      <div className="hidden sm:flex items-center bg-[#181825] h-10 px-2 gap-px border-b border-black/20">
         <div className="flex items-center gap-2 px-4 h-full bg-[#1e1e2e] text-white text-xs font-medium border-t-2 border-primary group relative shadow-sm">
           <FileCode className="w-3.5 h-3.5 text-amber-500" />
           <span>{file.name}</span>
@@ -292,68 +292,61 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(({ file,
         </div>
       </div>
 
-      {/* Toolbar Above Code */}
-      <div className="bg-[#1e1e2e] border-b border-white/5 px-4 py-2 flex justify-between items-center z-10">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active File</span>
+      {/* Toolbar Above Code - Adaptive for mobile */}
+      <div className="bg-[#1e1e2e] border-b border-white/5 px-3 md:px-4 py-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 z-10">
+        <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto no-scrollbar">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest hidden xs:block">File</span>
             <div className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded-lg border border-white/5">
               <span className="text-xs font-bold text-slate-200">{file.name}</span>
             </div>
           </div>
           
           {lastModifiedBy && (
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 rounded-full animate-in fade-in zoom-in">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 rounded-full animate-in fade-in zoom-in flex-shrink-0">
               <div className="size-1.5 rounded-full bg-primary animate-pulse" />
               <span className="text-[10px] font-bold text-primary uppercase tracking-tighter">
                 {lastModifiedBy} editing
               </span>
             </div>
           )}
-          
-          {isLoadingAI && (
-            <div className="flex items-center gap-2 px-3 py-1 bg-purple-500/10 rounded-full animate-pulse">
-               <Sparkles className="w-3 h-3 text-purple-400" />
-               <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">AI Syncing...</span>
-            </div>
-          )}
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-end overflow-x-auto no-scrollbar">
           {/* AI Panel Toggle */}
           <button
             onClick={() => setShowAIPanel(!showAIPanel)}
-            className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
+            className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all flex-shrink-0 ${
               showAIPanel
                 ? "bg-purple-500 text-white shadow-lg shadow-purple-500/20"
                 : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
-            <span>Analysis</span>
+            <span className="hidden xs:block">Analysis</span>
           </button>
           
           {/* CodeMentor Chat */}
           <button
             onClick={() => setShowCodeMentor(true)}
-            className="flex items-center gap-2 px-3 h-8 rounded-lg bg-primary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95"
+            className="flex items-center gap-2 px-3 h-8 rounded-lg bg-primary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95 flex-shrink-0"
             title="Chat with CodeMentor (Ctrl+/)"
           >
             <BrainCircuit className="w-3.5 h-3.5" />
-            <span>Mentor</span>
+            <span className="hidden xs:block">Mentor</span>
           </button>
           
           {file.language === "html" && (
             <button
               onClick={() => setIsPreviewMode(!isPreviewMode)}
-              className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${
+              className={`flex items-center gap-2 px-3 h-8 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all flex-shrink-0 ${
                 isPreviewMode
                   ? "bg-sky-500 text-white shadow-lg shadow-sky-500/20"
                   : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
               }`}
             >
               <Monitor className="w-3.5 h-3.5" />
-              <span>{isPreviewMode ? "Source" : "Preview"}</span>
+              <span className="hidden xs:block">{isPreviewMode ? "Source" : "Preview"}</span>
             </button>
           )}
         </div>

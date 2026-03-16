@@ -50,23 +50,23 @@ export function FeatureSlider() {
   const duplicatedFeatures = [...features, ...features];
 
   return (
-    <section id="features" className="w-full py-24 bg-slate-900 overflow-hidden relative border-t border-slate-800">
+    <section id="features" className="w-full py-24 bg-background overflow-hidden relative border-t border-border">
       <div className="max-w-7xl mx-auto px-6 relative z-20">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-foreground mb-6"
           >
-            Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">build faster</span>
+            Everything you need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">build faster</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium"
           >
             CodeCollab provides a comprehensive suite of tools designed to make pair programming and team collaboration effortless.
           </motion.p>
@@ -75,8 +75,8 @@ export function FeatureSlider() {
 
       <div className="relative w-full overflow-hidden pb-8">
         {/* Subtle gradient edges to mask the slider */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         <motion.div 
           className="flex gap-6 w-max" 
@@ -95,12 +95,12 @@ export function FeatureSlider() {
               key={idx}
               className="w-[300px] md:w-[380px] flex-shrink-0"
             >
-              <div className="h-full bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:bg-slate-800 hover:border-indigo-500/30 transition-all shadow-lg hover:shadow-indigo-500/10 flex flex-col group cursor-default">
-                <div className="bg-slate-900/50 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+              <div className="h-full bg-card backdrop-blur-sm border border-border rounded-2xl p-8 hover:bg-card hover:border-primary/30 transition-all shadow-lg hover:shadow-primary/10 flex flex-col group cursor-default">
+                <div className="bg-muted w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">{feature.title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm flex-1">{feature.description}</p>
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm flex-1 font-medium">{feature.description}</p>
               </div>
             </div>
           ))}

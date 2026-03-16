@@ -8,10 +8,14 @@ if (!import.meta.env.VITE_CONVEX_URL) {
   throw new Error("Missing VITE_CONVEX_URL environment variable. Please add it to your Netlify settings.");
 }
 
+import { ThemeProvider } from "./components/ThemeProvider";
+
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 createRoot(document.getElementById("root")!).render(
-  <ConvexAuthProvider client={convex}>
-    <App />
-  </ConvexAuthProvider>,
+  <ThemeProvider>
+    <ConvexAuthProvider client={convex}>
+      <App />
+    </ConvexAuthProvider>
+  </ThemeProvider>,
 );

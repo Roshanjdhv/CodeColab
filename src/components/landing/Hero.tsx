@@ -4,9 +4,9 @@ import { Terminal, Users, Play, Code2 } from 'lucide-react';
 
 export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding: () => void, isAuthenticated?: boolean }) {
   return (
-    <section className="relative w-full pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center overflow-hidden">
+    <section className="relative w-full pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center overflow-hidden bg-background">
       {/* Background decorations */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px] opacity-10 dark:opacity-100"></div>
       
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between z-10 gap-16">
         {/* Left Column: Text */}
@@ -16,43 +16,43 @@ export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex-1 flex flex-col items-start text-left"
         >
-          <div className="inline-flex items-center space-x-2 bg-indigo-500/10 text-indigo-300 px-3 py-1 rounded-full text-sm font-medium mb-6 border border-indigo-500/20">
+          <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold mb-6 border border-primary/20">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
             <span>CodeCollab v2.0 is live</span>
           </div>
           
-          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-            Collaborate, <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Code</span>, <br className="hidden md:block"/> and Build Together
+          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight text-foreground mb-6 leading-tight">
+            Collaborate, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Code</span>, <br className="hidden md:block"/> and Build Together
           </h1>
           
-          <p className="text-base md:text-xl text-slate-400 mb-8 max-w-2xl">
+          <p className="text-base md:text-xl text-muted-foreground mb-8 max-w-2xl font-medium">
             CodeCollab allows multiple developers to write, edit, and execute code simultaneously in real time. Experience the future of team software development.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button 
               onClick={onStartCoding}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_30px_rgba(79,70,229,0.3)] transition-all flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
             >
               {isAuthenticated ? 'Go to Dashboard' : 'Start Coding'}
               <Terminal className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="hidden sm:flex w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors items-center justify-center gap-2 border border-slate-700">
+            <button className="hidden sm:flex w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg bg-muted text-foreground hover:bg-muted/80 transition-all items-center justify-center gap-2 border border-border overflow-hidden relative shadow-sm hover:shadow-md active:scale-95">
               <Play className="w-5 h-5" />
               View Demo
             </button>
           </div>
 
-          <div className="mt-12 flex items-center gap-6 text-sm text-slate-500">
+          <div className="mt-12 flex items-center gap-6 text-sm text-muted-foreground font-bold uppercase tracking-wider">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-slate-400" />
+              <Users className="w-4 h-4 text-primary" />
               <span>Multi-user Editing</span>
             </div>
             <div className="flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-slate-400" />
+              <Code2 className="w-4 h-4 text-primary" />
               <span>Syntax Highlighting</span>
             </div>
           </div>
@@ -66,19 +66,19 @@ export function Hero({ onStartCoding, isAuthenticated = false }: { onStartCoding
           className="flex-1 w-full max-w-2xl relative"
         >
           {/* Decorative glow behind editor */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 rounded-2xl blur-2xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-purple-500/20 rounded-2xl blur-2xl"></div>
           
-          <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900/80 backdrop-blur-xl shadow-2xl overflow-hidden ring-1 ring-white/10">
+          <div className="relative rounded-2xl border border-border bg-card shadow-2xl dark:shadow-none overflow-hidden ring-1 ring-border transition-all duration-300">
             {/* Window Controls */}
-            <div className="px-4 py-3 border-b border-slate-800 flex items-center gap-2 bg-slate-900">
+            <div className="px-4 py-3 border-b border-border flex items-center gap-2 bg-muted/30">
               <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
               <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-              <div className="ml-4 text-xs text-slate-500 font-mono">main.tsx</div>
+              <div className="ml-4 text-xs text-muted-foreground font-mono">main.tsx</div>
             </div>
             
             {/* Editor Content */}
-            <div className="p-6 font-mono text-sm leading-relaxed text-slate-300">
+            <div className="p-6 font-mono text-sm leading-relaxed text-foreground bg-card">
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

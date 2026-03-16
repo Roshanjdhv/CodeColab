@@ -1,7 +1,7 @@
-# CodeCollab - Real-time Collaborative Coding Platform
+# CodeColab - Real-time Collaborative Coding Platform
   
-This is a project built with [Chef](https://chef.convex.dev) using [Convex](https://convex.dev) as its backend.
- You can find docs about Chef with useful information like how to deploy to production [here](https://docs.convex.dev/chef).
+This is a project built using [Convex](https://convex.dev) as its backend.
+You can find docs about building with Convex [here](https://docs.convex.dev).
   
 This project is connected to the Convex deployment named [`prestigious-salmon-394`](https://dashboard.convex.dev/d/prestigious-salmon-394).
   

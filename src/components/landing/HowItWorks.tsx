@@ -35,23 +35,23 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="w-full py-24 bg-slate-900 border-t border-slate-800">
+    <section id="how-it-works" className="w-full py-24 bg-background border-t border-border transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-foreground mb-6"
           >
-            How it <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">works</span>
+            How it <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">works</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium"
           >
             Get started in seconds. No complicated setup, just seamless collaborative coding right in your browser.
           </motion.p>
@@ -59,7 +59,7 @@ export function HowItWorks() {
 
         <div className="relative mt-8">
           {/* Connecting line for desktop */}
-          <div className="hidden md:block absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-slate-800 via-indigo-500/50 to-slate-800 z-0" />
+          <div className="hidden md:block absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-border via-primary/50 to-border z-0" />
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
@@ -74,7 +74,7 @@ export function HowItWorks() {
                 {/* Connector Arrow for mobile */}
                 {index !== steps.length - 1 && (
                   <div className="md:hidden absolute -bottom-6 flex justify-center w-full">
-                    <ArrowRight className="w-5 h-5 text-slate-700 rotate-90" />
+                    <ArrowRight className="w-5 h-5 text-muted-foreground rotate-90" />
                   </div>
                 )}
 
@@ -84,10 +84,10 @@ export function HowItWorks() {
                   <div className={`absolute inset-0 rounded-2xl blur-xl opacity-30 group-hover:opacity-60 transition-opacity duration-300 bg-gradient-to-br ${step.color}`} />
                   
                   {/* Icon container */}
-                  <div className={`relative w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br ${step.color} shadow-lg shadow-indigo-500/20 z-10 
+                  <div className={`relative w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br ${step.color} shadow-lg shadow-primary/20 z-10 
                     transform group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]`}
                   >
-                    <div className="absolute top-[-10px] right-[-10px] w-6 h-6 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm z-20">
+                    <div className="absolute top-[-10px] right-[-10px] w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center text-xs font-bold text-foreground shadow-sm z-20">
                       {index + 1}
                     </div>
                     {step.icon}
@@ -95,10 +95,10 @@ export function HowItWorks() {
                 </div>
 
                 {/* Text Content */}
-                <h3 className="text-xl font-bold text-white mb-3 text-center group-hover:text-indigo-300 transition-colors">
+                <h3 className="text-xl font-bold text-foreground mb-3 text-center group-hover:text-primary transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-slate-400 text-center leading-relaxed text-sm">
+                <p className="text-muted-foreground text-center leading-relaxed text-sm font-medium">
                   {step.description}
                 </p>
               </motion.div>

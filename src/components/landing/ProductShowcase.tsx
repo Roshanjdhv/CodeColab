@@ -3,23 +3,23 @@ import { motion } from 'framer-motion';
 
 export function ProductShowcase() {
   return (
-    <section id="showcase" className="w-full py-24 bg-slate-900 border-t border-slate-800">
+    <section id="showcase" className="w-full py-24 bg-background border-t border-border transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-foreground mb-6"
           >
-            A powerful editor, <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">built for teams</span>
+            A powerful editor, <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">built for teams</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium"
           >
             Experience lightning-fast collaboration with our state-of-the-art interactive coding workspace.
           </motion.p>
@@ -33,65 +33,65 @@ export function ProductShowcase() {
           className="relative w-full max-w-5xl mx-auto"
         >
           {/* Editor shadow/glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 via-teal-500/10 to-blue-500/20 blur-3xl transform -translate-y-4 rounded-[40px] z-0" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 via-teal-500/10 to-blue-500/20 blur-3xl transform -translate-y-4 rounded-[40px] z-0 opacity-50 dark:opacity-100" />
           
-          <div className="relative rounded-[2rem] border border-slate-700/80 bg-slate-900 shadow-2xl overflow-hidden ring-1 ring-white/5 z-10 flex flex-col md:flex-row h-[600px]">
+          <div className="relative rounded-[2rem] border border-border bg-card shadow-2xl overflow-hidden ring-1 ring-border z-10 flex flex-col md:flex-row h-[600px]">
             {/* Sidebar */}
-            <div className="hidden md:flex w-64 border-r border-slate-800 flex-col bg-slate-900/90 backdrop-blur">
-              <div className="p-4 border-b border-slate-800 flex items-center gap-2">
+            <div className="hidden md:flex w-64 border-r border-border flex-col bg-card/90 backdrop-blur">
+              <div className="p-4 border-b border-border flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-teal-500/20 flex items-center justify-center">
                   <span className="text-teal-400 font-bold">W</span>
                 </div>
-                <span className="text-slate-200 font-semibold">Web Project</span>
+                <span className="text-foreground font-bold">Web Project</span>
               </div>
               <div className="p-4 space-y-2">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Files</div>
-                <div className="flex items-center gap-2 text-sm text-slate-300 bg-slate-800/50 px-3 py-1.5 rounded-md">
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Files</div>
+                <div className="flex items-center gap-2 text-sm text-foreground bg-muted/50 px-3 py-1.5 rounded-md font-medium">
                   <span className="text-yellow-500">{"{}"}</span> package.json
                 </div>
-                <div className="flex items-center gap-2 text-sm text-slate-400 px-3 py-1.5 hover:text-slate-300 cursor-pointer">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground px-3 py-1.5 hover:text-foreground cursor-pointer font-medium transition-colors">
                   <span className="text-blue-400">#</span> index.css
                 </div>
-                <div className="flex items-center gap-2 text-sm text-teal-300 bg-slate-800 px-3 py-1.5 rounded-md border border-slate-700/50">
-                  <span className="text-blue-500">TS</span> App.tsx
+                <div className="flex items-center gap-2 text-sm text-teal-500 bg-teal-500/10 px-3 py-1.5 rounded-md border border-teal-500/20 font-bold">
+                  <span className="text-blue-500 font-bold">TS</span> App.tsx
                 </div>
-                <div className="flex items-center gap-2 text-sm text-slate-400 px-3 py-1.5 hover:text-slate-300 cursor-pointer">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground px-3 py-1.5 hover:text-foreground cursor-pointer font-medium transition-colors">
                   <span className="text-blue-500">TS</span> main.tsx
                 </div>
               </div>
               
-              <div className="mt-auto p-4 border-t border-slate-800 space-y-3">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Online (3)</div>
+              <div className="mt-auto p-4 border-t border-border space-y-3">
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Online (3)</div>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-slate-900">Y</div>
-                  <span className="text-xs text-slate-400">You</span>
+                  <div className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-background">Y</div>
+                  <span className="text-xs text-muted-foreground font-bold">You</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-slate-900">E</div>
-                  <span className="text-xs text-slate-400">Emma</span>
+                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-background">E</div>
+                  <span className="text-xs text-muted-foreground font-bold">Emma</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-slate-900">M</div>
-                  <span className="text-xs text-slate-400">Mike</span>
+                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-background">M</div>
+                  <span className="text-xs text-muted-foreground font-bold">Mike</span>
                 </div>
               </div>
             </div>
 
             {/* Main Editor Area */}
-            <div className="flex-1 flex flex-col bg-[#0d1117]">
+            <div className="flex-1 flex flex-col bg-background dark:bg-[#0d1117]">
               {/* Tabs */}
-              <div className="flex bg-[#010409] border-b border-slate-800 overflow-x-auto">
-                <div className="px-4 py-3 text-sm text-slate-300 bg-[#0d1117] border-t-2 border-t-teal-500 border-r border-slate-800 flex items-center gap-2 min-w-[120px]">
+              <div className="flex bg-muted/30 dark:bg-[#010409] border-b border-border">
+                <div className="px-4 py-3 text-sm text-foreground dark:text-slate-300 bg-background dark:bg-[#0d1117] border-t-2 border-t-teal-500 border-r border-border flex items-center gap-2 min-w-[120px] font-bold">
                   <span className="text-blue-500">TS</span> App.tsx
-                  <span className="ml-auto text-slate-500 hover:text-slate-300">×</span>
+                  <span className="ml-auto text-muted-foreground hover:text-foreground">×</span>
                 </div>
-                <div className="px-4 py-3 text-sm text-slate-500 border-r border-slate-800 flex items-center gap-2 min-w-[120px]">
+                <div className="px-4 py-3 text-sm text-muted-foreground border-r border-border flex items-center gap-2 min-w-[120px] font-medium">
                   <span className="text-blue-400">#</span> index.css
                 </div>
               </div>
 
               {/* Code */}
-              <div className="flex-1 p-6 font-mono text-sm leading-7 text-slate-300 relative overflow-hidden">
+              <div className="flex-1 p-6 font-mono text-sm leading-7 text-foreground dark:text-slate-300 relative overflow-hidden bg-background dark:bg-[#0d1117]">
                 <motion.div 
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -149,12 +149,12 @@ export function ProductShowcase() {
                 </motion.div>
                 
                 {/* Floating "Live" badge */}
-                <div className="absolute bottom-6 right-6 flex items-center gap-2 bg-slate-800/80 backdrop-blur border border-slate-700 rounded-full px-4 py-2 shadow-lg">
+                <div className="absolute bottom-6 right-6 flex items-center gap-2 bg-card/80 backdrop-blur border border-border rounded-full px-4 py-2 shadow-lg">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                   </span>
-                  <span className="text-xs font-semibold text-slate-300">3 Online</span>
+                  <span className="text-xs font-bold text-muted-foreground tracking-wide">3 Online</span>
                 </div>
               </div>
             </div>

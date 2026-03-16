@@ -27,23 +27,23 @@ const benefits = [
 
 export function Benefits() {
   return (
-    <section id="benefits" className="w-full py-24 bg-slate-900 border-t border-slate-800">
+    <section id="benefits" className="w-full py-24 bg-background border-t border-border transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-5xl font-bold text-foreground mb-6"
           >
-            Why choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">CodeCollab?</span>
+            Why choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">CodeCollab?</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium"
           >
             Built from the ground up to empower development teams, educators, and individual creators.
           </motion.p>
@@ -58,17 +58,17 @@ export function Benefits() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="bg-slate-800/40 backdrop-blur-md border border-slate-700/50 p-8 rounded-3xl transition-all hover:bg-slate-800/80 hover:border-indigo-500/30 group shadow-lg hover:shadow-indigo-500/10"
+              className="bg-card backdrop-blur-md border border-border p-8 rounded-3xl transition-all hover:bg-card hover:border-primary/30 group shadow-lg hover:shadow-primary/10"
             >
               <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="bg-slate-900/50 p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                <div className="bg-muted p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300 shadow-inner">
                   {benefit.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                  <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                     {benefit.title}
                   </h3>
-                  <p className="text-slate-400 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed font-medium">
                     {benefit.description}
                   </p>
                 </div>

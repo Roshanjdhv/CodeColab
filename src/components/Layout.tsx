@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { SignOutButton } from "../SignOutButton";
@@ -15,6 +15,7 @@ import {
   Menu,
   X
 } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Layout() {
   const profile = useQuery(api.profiles.getCurrentProfile);
@@ -40,22 +41,22 @@ export function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 border-x border-slate-200/50 max-w-[100vw] overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-background border-x border-border max-w-[100vw] overflow-hidden flex flex-col transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 md:px-6 py-3 md:py-4 sticky top-0 z-50">
+      <header className="bg-card/80 backdrop-blur-md border-b border-border px-4 md:px-6 py-3 md:py-4 sticky top-0 z-50">
         <div className="w-full flex justify-between items-center">
           <div className="flex items-center space-x-4 md:space-x-8">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
                 <Terminal className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent hidden sm:block">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-foreground to-slate-400 bg-clip-text text-transparent hidden sm:block">
                 CodeCollab
               </h1>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 ml-4 p-1 bg-slate-100/50 rounded-2xl border border-slate-200/50">
+            <nav className="hidden lg:flex items-center gap-1 ml-4 p-1 bg-muted/50 rounded-2xl border border-border">
               {tabs.map((tab) => (
                 <NavLink
                   key={tab.id}
@@ -63,15 +64,15 @@ export function Layout() {
                   className={({ isActive }) =>
                     `px-4 py-2 text-sm font-bold transition-all relative rounded-xl flex items-center gap-2 ${
                       isActive
-                        ? "text-white bg-indigo-600 shadow-lg shadow-indigo-600/20"
-                        : "text-slate-500 hover:text-slate-900 hover:bg-white/50"
+                        ? "text-primary-foreground bg-primary shadow-lg shadow-primary/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/10"
                     }`
                   }
                 >
                   {tab.icon}
                   {tab.label}
                   {tab.badge && (
-                    <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center shadow-lg ring-2 ring-white z-10">
+                    <span className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center shadow-lg ring-2 ring-background z-10">
                       {tab.badge}
                     </span>
                   )}
@@ -81,7 +82,9 @@ export function Layout() {
           </div>
           
           <div className="flex items-center gap-2 md:gap-4">
-            <div className="flex items-center gap-3 p-1 md:p-1.5 md:pr-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-indigo-200 transition-all cursor-pointer group">
+            <ThemeToggle />
+            
+            <div className="flex items-center gap-3 p-1 md:p-1.5 md:pr-4 rounded-2xl bg-card border border-border shadow-sm hover:border-primary transition-all cursor-pointer group">
               {profile?.profileImageUrl ? (
                 <img 
                   src={profile.profileImageUrl} 
@@ -97,12 +100,12 @@ export function Layout() {
                 </div>
               )}
               <div className="hidden md:flex flex-col">
-                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-0.5">Account</span>
+                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider leading-none mb-0.5">Account</span>
                  <div className="flex items-center gap-1">
-                    <span className="text-sm font-bold text-slate-700 group-hover:text-slate-900">
+                    <span className="text-sm font-bold text-foreground group-hover:text-primary">
                       {profile?.username}
                     </span>
-                    <ChevronDown className="w-3 h-3 text-slate-400 group-hover:text-slate-600" />
+                    <ChevronDown className="w-3 h-3 text-muted-foreground group-hover:text-primary" />
                  </div>
               </div>
             </div>
@@ -110,12 +113,12 @@ export function Layout() {
             {/* Mobile Menu Toggle */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-slate-900 shadow-sm"
+              className="lg:hidden p-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground shadow-sm"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
-            <div className="hidden md:block h-8 w-[1px] bg-slate-200 mx-1" />
+            <div className="hidden md:block h-8 w-[1px] bg-border mx-1" />
             <div className="hidden md:block">
               <SignOutButton />
             </div>
@@ -123,46 +126,47 @@ export function Layout() {
         </div>
 
         {/* Mobile Navigation Dropdown */}
-        <motion.div
-          initial={false}
-          animate={mobileMenuOpen ? "open" : "closed"}
-          variants={{
-            open: { opacity: 1, height: 'auto', display: 'block', marginTop: '1rem' },
-            closed: { opacity: 0, height: 0, transitionEnd: { display: 'none' }, marginTop: 0 }
-          }}
-          className="lg:hidden border-t border-slate-100 pt-4 overflow-hidden"
-        >
-          <div className="grid grid-cols-1 gap-2">
-            {tabs.map((tab) => (
-              <NavLink
-                key={tab.id}
-                to={tab.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  `px-4 py-3 text-sm font-bold transition-all rounded-xl flex items-center justify-between ${
-                    isActive
-                      ? "text-white bg-indigo-600 shadow-lg shadow-indigo-600/20"
-                      : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
-                  }`
-                }
-              >
-                <div className="flex items-center gap-3">
-                  {tab.icon}
-                  {tab.label}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden border-t border-border mt-4 pt-4 overflow-hidden"
+            >
+              <div className="grid grid-cols-1 gap-2">
+                {tabs.map((tab) => (
+                  <NavLink
+                    key={tab.id}
+                    to={tab.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `px-4 py-3 text-sm font-bold transition-all rounded-xl flex items-center justify-between ${
+                        isActive
+                          ? "text-primary-foreground bg-primary shadow-lg shadow-primary/20"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      }`
+                    }
+                  >
+                    <div className="flex items-center gap-3">
+                      {tab.icon}
+                      {tab.label}
+                    </div>
+                    {tab.badge && (
+                      <span className="bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                        {tab.badge}
+                      </span>
+                    )}
+                  </NavLink>
+                ))}
+                <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
+                  <SignOutButton />
+                  <div className="text-xs text-muted-foreground">v2.0.4</div>
                 </div>
-                {tab.badge && (
-                  <span className="bg-rose-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                    {tab.badge}
-                  </span>
-                )}
-              </NavLink>
-            ))}
-            <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center">
-              <SignOutButton />
-              <div className="text-xs text-slate-400">v2.0.4</div>
-            </div>
-          </div>
-        </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <div className="w-full px-6 py-8 flex-1 flex flex-col">
